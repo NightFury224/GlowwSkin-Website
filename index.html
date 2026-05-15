@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GlowwSkin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F5F1EB;
+      --bg2: #EAE3D8;
+      --text: #111111;
+      --muted: #5f5f5f;
+      --gold: #C89B6D;
+      --uv: #7A5CFF;
+      --ir: #D94B4B;
+      --pl: #4FAE88;
+      --whiteLight: #F4F4F4;
+      --card: rgba(255,255,255,0.65);
+      --border: rgba(0,0,0,0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    img {
+      width: 100%;
+      display: block;
+      border-radius: 24px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1280px, 92%);
+      margin: auto;
+    }
+
+    section {
+      padding: 100px 0;
+    }
+
+    .eyebrow {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--gold);
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+
+    h1, h2, h3 {
+      letter-spacing: -0.04em;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 7vw, 6.5rem);
+      line-height: 0.95;
+      margin-bottom: 28px;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 4vw, 4rem);
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+
+    p {
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .btns {
+      display: flex;
+      gap: 16px;
+      margin-top: 36px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 16px 26px;
+      border-radius: 999px;
+      font-weight: 600;
+      transition: 0.3s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--text);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--gold);
+      color: black;
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.5);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(circle at top right, rgba(200,155,109,0.18), transparent 30%), var(--bg);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      align-items: center;
+      gap: 60px;
+    }
+
+    .hero p {
+      max-width: 620px;
+      font-size: 1.15rem;
+    }
+
+    .hero-card {
+      position: relative;
+    }
+
+    .hero-card img {
+      border-radius: 40px;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.12);
+    }
+
+    .stats {
+      margin-top: 42px;
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat strong {
+      font-size: 1.5rem;
+    }
+
+    .glass-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      border-radius: 28px;
+      padding: 26px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .feature-grid {
+      margin-top: 60px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+
+    .feature-card {
+      padding: 26px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.55);
+      border: 1px solid var(--border);
+      transition: 0.35s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    }
+
+    .feature-card h3 {
+      margin: 18px 0 10px;
+      font-size: 1.2rem;
+    }
+
+    .feature-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      background: var(--bg2);
+    }
+
+    .spectral-grid {
+      margin-top: 60px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+
+    .spectral-card {
+      overflow: hidden;
+      border-radius: 28px;
+      background: white;
+      border: 1px solid var(--border);
+    }
+
+    .spectral-card .content {
+      padding: 22px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .uv { background: rgba(122,92,255,0.12); color: var(--uv); }
+    .ir { background: rgba(217,75,75,0.12); color: var(--ir); }
+    .pl { background: rgba(79,174,136,0.12); color: var(--pl); }
+    .wl { background: rgba(0,0,0,0.06); color: #333; }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 60px;
+    }
+
+    .step {
+      padding: 40px;
+      border-radius: 28px;
+      background: white;
+      border: 1px solid var(--border);
+    }
+
+    .step-number {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--text);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      font-weight: 700;
+    }
+
+    .analysis-grid {
+      margin-top: 60px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .analysis-grid img {
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .app-showcase {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+      margin-top: 60px;
+    }
+
+    .phone-ui {
+      background: #111;
+      border-radius: 36px;
+      padding: 14px;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.12);
+    }
+
+    .phone-ui img {
+      border-radius: 24px;
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      margin-top: 60px;
+    }
+
+    .usecases {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 60px;
+    }
+
+    .usecase {
+      border-radius: 28px;
+      overflow: hidden;
+      background: white;
+      border: 1px solid var(--border);
+    }
+
+    .usecase .content {
+      padding: 24px;
+    }
+
+    .cta {
+      background: #0F0F0F;
+      color: white;
+      border-radius: 40px;
+      padding: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .cta p {
+      color: rgba(255,255,255,0.72);
+      max-width: 560px;
+    }
+
+    footer {
+      padding: 40px 0 80px;
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: -0.04em;
+    }
+
+    @media(max-width: 1100px) {
+      .hero-grid,
+      .two-col,
+      .cta-grid,
+      .feature-grid,
+      .spectral-grid,
+      .steps,
+      .analysis-grid,
+      .app-showcase,
+      .trust-grid,
+      .usecases {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media(max-width: 768px) {
+      section {
+        padding: 70px 0;
+      }
+
+      .hero-grid,
+      .two-col,
+      .feature-grid,
+      .spectral-grid,
+      .steps,
+      .analysis-grid,
+      .app-showcase,
+      .trust-grid,
+      .usecases,
+      .cta-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta {
+        padding: 50px 30px;
+      }
+
+      h1 {
+        line-height: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow">Computational Dermatology Imaging</div>
+        <h1>Clinical Grade Skin Imaging.<br>Powered By Your Phone.</h1>
+        <p>
+          GlowwSkin transforms your smartphone into a precision dermatology imaging app using computational optics, controlled multispectral lighting, and AI powered skin analysis.
+        </p>
+
+        <div class="btns">
+          <a href="#technology" class="btn btn-primary">See Your Skin Differently</a>
+          <a href="#spectral" class="btn btn-secondary">View Technology</a>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <strong>4</strong>
+            <span>Imaging Modes</span>
+          </div>
+          <div class="stat">
+            <strong>RAW</strong>
+            <span>Capture Pipeline</span>
+          </div>
+          <div class="stat">
+            <strong>AI</strong>
+            <span>Analysis Engine</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <img src="images/hero-render.png" alt="GlowwSkin Hero Product">
+      </div>
+    </div>
+  </section>
+
+  <section id="technology">
+    <div class="container">
+      <div class="two-col">
+        <div>
+          <div class="eyebrow">Product Design</div>
+          <h2>Built Around Controlled Imaging.</h2>
+          <p>
+            GlowwSkin uses your phone’s existing rear camera with a precision aligned macro optic, conical imaging chamber, and controlled multispectral lighting system to create repeatable dermatology grade captures.
+          </p>
+        </div>
+
+        <div class="glass-card">
+          <img src="images/exploded-view.png" alt="Exploded Product View">
+        </div>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">O</div>
+          <h3>Precision Optics</h3>
+          <p>Macro lens alignment optimized for detailed skin texture and pore visualization.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">UV</div>
+          <h3>Multispectral Lighting</h3>
+          <p>White, UV, IR, and polarized imaging modes reveal different skin structures.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">AI</div>
+          <h3>AI Analysis</h3>
+          <p>Computational segmentation, redness mapping, and texture analysis pipelines.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">R</div>
+          <h3>Repeatable Imaging</h3>
+          <p>Controlled geometry and illumination designed for consistent longitudinal scans.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="spectral">
+    <div class="container">
+      <div class="eyebrow">Multispectral Imaging</div>
+      <h2>See What Standard Cameras Miss.</h2>
+
+      <div class="spectral-grid">
+        <div class="spectral-card">
+          <img src="images/white-light.png" alt="White Light Imaging">
+          <div class="content">
+            <span class="tag wl">White Light</span>
+            <h3>Natural Skin Visualization</h3>
+            <p>Balanced clinical imaging for baseline skin texture and pigmentation analysis.</p>
+          </div>
+        </div>
+
+        <div class="spectral-card">
+          <img src="images/uv-light.png" alt="UV Imaging">
+          <div class="content">
+            <span class="tag uv">UV Imaging</span>
+            <h3>Surface Fluorescence</h3>
+            <p>Highlights pigmentation, acne regions, and UV sensitive surface structures.</p>
+          </div>
+        </div>
+
+        <div class="spectral-card">
+          <img src="images/ir-light.png" alt="IR Imaging">
+          <div class="content">
+            <span class="tag ir">IR Imaging</span>
+            <h3>Subsurface Insights</h3>
+            <p>Enhances visibility of deeper texture and vascular patterns beneath the skin surface.</p>
+          </div>
+        </div>
+
+        <div class="spectral-card">
+          <img src="images/polarized-light.png" alt="Polarized Imaging">
+          <div class="content">
+            <span class="tag pl">Polarized</span>
+            <h3>Reduced Surface Glare</h3>
+            <p>Suppresses reflections to improve fine texture and pore visibility.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="eyebrow">How It Works</div>
+      <h2>Attach. Capture. Analyze.</h2>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Attach</h3>
+          <p>Secure the GlowwSkin imaging chamber directly over the smartphone rear camera using the precision clip mechanism.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Capture</h3>
+          <p>Controlled multispectral illumination and RAW imaging pipelines generate repeatable skin captures.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Analyze</h3>
+          <p>AI powered analysis extracts insights from texture, pigmentation, redness, and pore distribution.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="eyebrow">AI Analysis</div>
+      <h2>Computational Dermatology Insights.</h2>
+
+      <div class="analysis-grid">
+        <img src="images/analysis-redness.png" alt="Redness Mapping">
+        <img src="images/analysis-pores.png" alt="Pore Mapping">
+        <img src="images/analysis-pigmentation.png" alt="Pigmentation Mapping">
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="eyebrow">App Experience</div>
+      <h2>Built For Repeatable Tracking.</h2>
+
+      <div class="app-showcase">
+        <div class="phone-ui">
+          <img src="images/ui-scan.png" alt="Scan UI">
+        </div>
+
+        <div class="phone-ui">
+          <img src="images/ui-results.png" alt="Results UI">
+        </div>
+
+        <div class="phone-ui">
+          <img src="images/ui-dashboard.png" alt="Dashboard UI">
+        </div>
+
+        <div class="phone-ui">
+          <img src="images/ui-history.png" alt="History UI">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="eyebrow">Technical Trust</div>
+      <h2>Engineered For Controlled Imaging.</h2>
+
+      <div class="trust-grid">
+        <div class="glass-card">
+          <img src="images/controlled-lighting.png" alt="Controlled Lighting">
+          <h3 style="margin-top: 24px;">Controlled Illumination</h3>
+          <p>
+            Conical chamber geometry reduces ambient light contamination and improves capture consistency.
+          </p>
+        </div>
+
+        <div class="glass-card">
+          <img src="images/raw-vs-processed.png" alt="RAW Comparison">
+          <h3 style="margin-top: 24px;">RAW Capture Pipeline</h3>
+          <p>
+            Designed around deterministic smartphone imaging workflows and controlled computational analysis.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="eyebrow">Use Cases</div>
+      <h2>Built For Modern Skin Intelligence.</h2>
+
+      <div class="usecases">
+        <div class="usecase">
+          <img src="images/usecase-skincare.png" alt="Skincare Tracking">
+          <div class="content">
+            <h3>Skincare Tracking</h3>
+            <p>Monitor texture, redness, and progress over time with consistent imaging conditions.</p>
+          </div>
+        </div>
+
+        <div class="usecase">
+          <img src="images/usecase-derm.png" alt="Dermatology Clinics">
+          <div class="content">
+            <h3>Dermatology Clinics</h3>
+            <p>Portable skin analysis workflows designed for consultations and teledermatology use cases.</p>
+          </div>
+        </div>
+
+        <div class="usecase">
+          <img src="images/usecase-analysis.png" alt="AI Skin Analysis">
+          <div class="content">
+            <h3>AI Skin Analysis</h3>
+            <p>Computational overlays provide structured visualization of key skin characteristics.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="cta">
+        <div class="cta-grid">
+          <div>
+            <div class="eyebrow">GlowwSkin</div>
+            <h2>The Future of Skin Imaging Fits In Your Pocket.</h2>
+            <p>
+              Precision optics, multispectral imaging, controlled lighting, and AI powered dermatology insights — all powered by your smartphone.
+            </p>
+
+            <div class="btns">
+              <a href="#" class="btn btn-primary">Join The Future</a>
+            </div>
+          </div>
+
+          <div>
+            <img src="images/cta-render.png" alt="GlowwSkin CTA Render">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-row">
+      <div class="logo">GlowwSkin</div>
+      <p>Computational dermatology imaging app.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
