@@ -3,694 +3,928 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GlowwSkin</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>Voltroen | Cyber Black Box</title>
+  <meta name="description" content="Voltroen's Cyber Black Box: a tamper-detecting log server with secure pathways, a Raspberry Pi 5 extraction node and lockdown against unauthorized devices." />
+  <meta name="theme-color" content="#0b1020" />
+  <meta property="og:title" content="Voltroen | Cyber Black Box" />
+  <meta property="og:description" content="Every log sealed. Every device accounted for. Tamper-evident logging for critical systems." />
+  <meta property="og:image" content="assets/logo.png" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <script>document.documentElement.classList.add('js');</script>
   <style>
     :root {
-      --bg: #F5F1EB;
-      --bg2: #EAE3D8;
-      --text: #111111;
-      --muted: #5f5f5f;
-      --gold: #C89B6D;
-      --uv: #7A5CFF;
-      --ir: #D94B4B;
-      --pl: #4FAE88;
-      --whiteLight: #F4F4F4;
-      --card: rgba(255,255,255,0.65);
-      --border: rgba(0,0,0,0.08);
+      --navy: #232734;
+      --ink: #0b1020;
+      --ink-2: #111830;
+      --blue: #0856e0;
+      --blue-soft: #e8f0ff;
+      --blue-bright: #4d8dff;
+      --bg: #f7f8fb;
+      --surface: #ffffff;
+      --line: #e3e7ef;
+      --text: #232734;
+      --muted: #5b6275;
+      --green: #22c55e;
+      --amber: #f5a524;
+      --red: #f04444;
+      --radius: 16px;
+      --shadow: 0 1px 2px rgba(16, 24, 40, .04), 0 12px 32px -12px rgba(16, 24, 40, .12);
+      --wrap: 1160px;
+      --head: 'Sora', 'Inter', system-ui, sans-serif;
+      --body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    *, *::before, *::after { box-sizing: border-box; }
+    * { margin: 0; padding: 0; }
 
+    html { scroll-behavior: smooth; scroll-padding-top: 84px; }
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: var(--body);
       background: var(--bg);
       color: var(--text);
-      overflow-x: hidden;
       line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
+    img, svg { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 6px; }
 
-    img {
-      width: 100%;
-      display: block;
-      border-radius: 24px;
-    }
+    .wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
 
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .container {
-      width: min(1280px, 92%);
-      margin: auto;
-    }
-
-    section {
-      padding: 100px 0;
-    }
+    h1, h2, h3 { font-family: var(--head); color: var(--navy); line-height: 1.12; letter-spacing: -0.02em; }
+    h1 { font-size: clamp(2.3rem, 4.6vw, 3.55rem); font-weight: 700; }
+    h2 { font-size: clamp(1.9rem, 3.6vw, 2.75rem); font-weight: 700; }
+    h3 { font-size: 1.15rem; font-weight: 600; letter-spacing: -0.01em; }
 
     .eyebrow {
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--gold);
-      margin-bottom: 18px;
-      font-weight: 700;
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--head); font-size: .78rem; font-weight: 600;
+      letter-spacing: .16em; text-transform: uppercase; color: var(--blue);
     }
+    .eyebrow::before { content: ""; width: 22px; height: 2px; border-radius: 2px; background: currentColor; }
 
-    h1, h2, h3 {
-      letter-spacing: -0.04em;
-    }
-
-    h1 {
-      font-size: clamp(3rem, 7vw, 6.5rem);
-      line-height: 0.95;
-      margin-bottom: 28px;
-    }
-
-    h2 {
-      font-size: clamp(2rem, 4vw, 4rem);
-      line-height: 1;
-      margin-bottom: 20px;
-    }
-
-    p {
-      color: var(--muted);
-      font-size: 1.05rem;
-    }
-
-    .btns {
-      display: flex;
-      gap: 16px;
-      margin-top: 36px;
-      flex-wrap: wrap;
-    }
+    .section { padding: 112px 0; }
+    .section-head { max-width: 680px; margin-bottom: 56px; }
+    .section-head h2 { margin: 14px 0 16px; }
+    .section-head p { color: var(--muted); font-size: 1.08rem; }
 
     .btn {
-      padding: 16px 26px;
-      border-radius: 999px;
-      font-weight: 600;
-      transition: 0.3s ease;
-      border: 1px solid transparent;
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 22px; border-radius: 999px;
+      font-weight: 600; font-size: .96rem; line-height: 1;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
     }
+    .btn svg { width: 18px; height: 18px; transition: transform .2s ease; }
+    .btn:hover svg { transform: translateX(3px); }
+    .btn-primary { background: var(--blue); color: #fff; box-shadow: 0 10px 24px -10px rgba(8, 86, 224, .7); }
+    .btn-primary:hover { background: #0a4cc4; transform: translateY(-1px); }
+    .btn-ghost { border: 1px solid var(--line); background: var(--surface); color: var(--navy); }
+    .btn-ghost:hover { border-color: #c7cfdd; transform: translateY(-1px); }
 
-    .btn-primary {
-      background: var(--text);
-      color: white;
+    /* ---------- Header ---------- */
+    .site-header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(247, 248, 251, .82);
+      backdrop-filter: saturate(160%) blur(14px);
+      -webkit-backdrop-filter: saturate(160%) blur(14px);
+      border-bottom: 1px solid transparent;
+      transition: border-color .25s ease, background .25s ease;
     }
-
-    .btn-primary:hover {
-      background: var(--gold);
-      color: black;
+    .site-header.scrolled { border-bottom-color: var(--line); background: rgba(255, 255, 255, .88); }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 24px; }
+    .brand img { height: 26px; width: auto; }
+    .nav-links { display: flex; align-items: center; gap: 34px; }
+    .nav-links a:not(.btn) { font-size: .93rem; font-weight: 500; color: var(--muted); transition: color .2s ease; }
+    .nav-links a:not(.btn):hover { color: var(--navy); }
+    .nav-links .btn { padding: 11px 18px; font-size: .9rem; }
+    .menu-btn {
+      display: none; width: 42px; height: 42px; border-radius: 12px;
+      border: 1px solid var(--line); background: var(--surface); cursor: pointer;
+      align-items: center; justify-content: center;
     }
-
-    .btn-secondary {
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.5);
-      backdrop-filter: blur(10px);
+    .menu-btn span, .menu-btn span::before, .menu-btn span::after {
+      display: block; width: 18px; height: 2px; border-radius: 2px; background: var(--navy);
+      position: relative; transition: transform .25s ease, background .25s ease;
     }
+    .menu-btn span::before, .menu-btn span::after { content: ""; position: absolute; left: 0; }
+    .menu-btn span::before { top: -6px; }
+    .menu-btn span::after { top: 6px; }
+    .menu-open .menu-btn span { background: transparent; }
+    .menu-open .menu-btn span::before { transform: translateY(6px) rotate(45deg); }
+    .menu-open .menu-btn span::after { transform: translateY(-6px) rotate(-45deg); }
 
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
+    /* ---------- Hero ---------- */
+    .hero { position: relative; padding: 72px 0 104px; overflow: hidden; }
+    .hero::before {
+      content: ""; position: absolute; inset: 0; z-index: -2;
+      background-image: radial-gradient(rgba(35, 39, 52, .09) 1px, transparent 1px);
+      background-size: 26px 26px;
+      -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 30%, transparent 75%);
+              mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 30%, transparent 75%);
+    }
+    .hero::after {
+      content: ""; position: absolute; z-index: -1; width: 720px; height: 720px; right: -220px; top: -260px;
+      background: radial-gradient(circle, rgba(8, 86, 224, .16), transparent 62%);
+    }
+    .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 64px; align-items: center; }
+    .hero-grid > *, .recog > *, .pi-panel > * { min-width: 0; }
+    .pill {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 7px 14px 7px 10px; border-radius: 999px;
+      background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow);
+      font-size: .84rem; font-weight: 500; color: var(--muted);
+    }
+    .pill b { color: var(--navy); font-weight: 600; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); position: relative; flex: none; }
+    .dot::after {
+      content: ""; position: absolute; inset: -4px; border-radius: 50%;
+      border: 2px solid var(--green); opacity: 0; animation: ping 2s ease-out infinite;
+    }
+    @keyframes ping { 0% { transform: scale(.4); opacity: .8; } 100% { transform: scale(1.6); opacity: 0; } }
+
+    .hero h1 { margin: 22px 0 20px; }
+    .hero h1 .accent { color: var(--blue); }
+    .hero-lede { font-size: 1.14rem; color: var(--muted); max-width: 540px; }
+    .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+
+    .hero-stats {
+      display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 0;
+      margin-top: 44px; padding-top: 28px; border-top: 1px solid var(--line);
+    }
+    .hero-stats div { padding-right: 28px; margin-right: 28px; border-right: 1px solid var(--line); }
+    .hero-stats div:last-child { border-right: 0; margin-right: 0; padding-right: 0; }
+    .hero-stats strong { display: block; font-family: var(--head); font-size: 1.6rem; font-weight: 700; color: var(--navy); letter-spacing: -0.02em; }
+    .hero-stats span { font-size: .86rem; color: var(--muted); }
+
+    /* ---------- Console (hero visual) ---------- */
+    .console {
       position: relative;
+      background: linear-gradient(180deg, #121a33, var(--ink));
+      border-radius: 20px; color: #c9d2e6;
+      border: 1px solid rgba(255, 255, 255, .06);
+      box-shadow: 0 40px 80px -30px rgba(11, 16, 32, .55), 0 0 0 8px rgba(255, 255, 255, .6);
+      font-family: var(--mono); font-size: .76rem;
       overflow: hidden;
-      background: radial-gradient(circle at top right, rgba(200,155,109,0.18), transparent 30%), var(--bg);
+    }
+    .console-bar {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 18px; border-bottom: 1px solid rgba(255, 255, 255, .07);
+    }
+    .lights { display: flex; gap: 6px; }
+    .lights i { width: 10px; height: 10px; border-radius: 50%; background: #2b3450; }
+    .console-title { color: #8d97b3; flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .integrity {
+      display: inline-flex; align-items: center; gap: 8px; flex: none;
+      padding: 5px 10px; border-radius: 999px; font-weight: 500; letter-spacing: .04em;
+      background: rgba(34, 197, 94, .12); color: #4ade80; border: 1px solid rgba(34, 197, 94, .3);
+      transition: background .3s ease, color .3s ease, border-color .3s ease;
+    }
+    .integrity .dot { width: 6px; height: 6px; background: currentColor; }
+    .integrity .dot::after { border-color: currentColor; }
+    .integrity.alert { background: rgba(240, 68, 68, .14); color: #ff7a7a; border-color: rgba(240, 68, 68, .4); }
+
+    .log { padding: 10px 0; height: 292px; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; }
+    .line {
+      display: grid; grid-template-columns: 92px 58px 96px 1fr 18px; gap: 10px; align-items: center;
+      padding: 6px 18px; white-space: nowrap;
+    }
+    .line > * { overflow: hidden; text-overflow: ellipsis; }
+    .line.new { animation: lineIn .45s ease both; }
+    @keyframes lineIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    .t { color: #5d6886; }
+    .tag { font-weight: 500; font-size: .68rem; letter-spacing: .06em; padding: 2px 0; border-radius: 4px; text-align: center; }
+    .src { color: #8d97b3; }
+    .msg { color: #d7deef; }
+    .st { text-align: right; font-weight: 500; }
+    .line.seal .tag { color: #7aa7ff; background: rgba(77, 141, 255, .12); }
+    .line.seal .st { color: #4ade80; }
+    .line.extr .tag { color: #a78bfa; background: rgba(167, 139, 250, .12); }
+    .line.extr .st { color: #4ade80; }
+    .line.block .tag { color: var(--amber); background: rgba(245, 165, 36, .12); }
+    .line.block .st { color: var(--amber); }
+    .line.alert { background: linear-gradient(90deg, rgba(240, 68, 68, .14), transparent 70%); }
+    .line.alert .tag { color: #ff7a7a; background: rgba(240, 68, 68, .16); }
+    .line.alert .msg { color: #ffb3b3; }
+    .line.alert .st { color: #ff7a7a; }
+
+    .console-foot {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid rgba(255, 255, 255, .07); background: rgba(255, 255, 255, .02);
+    }
+    .console-foot div { padding: 14px 18px; border-right: 1px solid rgba(255, 255, 255, .07); min-width: 0; }
+    .console-foot div:last-child { border-right: 0; }
+    .console-foot small { display: block; font-size: .64rem; letter-spacing: .08em; text-transform: uppercase; color: #5d6886; white-space: nowrap; }
+    .console-foot b { display: flex; align-items: center; gap: 8px; margin-top: 4px; font-size: .95rem; font-weight: 500; color: #fff; white-space: nowrap; }
+    .console-foot .online { color: #4ade80; font-size: .82rem; }
+    .console-foot .online .dot { width: 6px; height: 6px; background: currentColor; }
+    .console-foot .online .dot::after { border-color: currentColor; }
+
+    .hero-visual { position: relative; }
+    .float-chip {
+      position: absolute; display: flex; align-items: center; gap: 10px;
+      padding: 10px 14px; border-radius: 14px; background: var(--surface);
+      border: 1px solid var(--line); box-shadow: var(--shadow);
+      font-size: .82rem; font-weight: 500; color: var(--navy); white-space: nowrap;
+    }
+    .float-chip .ico { width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; background: var(--blue-soft); color: var(--blue); }
+    .float-chip .ico svg { width: 16px; height: 16px; }
+    .float-chip small { display: block; font-size: .72rem; font-weight: 400; color: var(--muted); }
+    .chip-a { left: -36px; bottom: 64px; animation: bob 6s ease-in-out infinite; }
+    .chip-b { right: 28px; top: -58px; animation: bob 6s ease-in-out -3s infinite; }
+    @keyframes bob { 50% { transform: translateY(-8px); } }
+
+    /* ---------- Platform ---------- */
+    .features { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .card {
+      position: relative; background: var(--surface); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow);
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+    .card:hover { transform: translateY(-4px); border-color: #cfd8ea; box-shadow: 0 24px 48px -24px rgba(16, 24, 40, .25); }
+    .card .ico {
+      width: 46px; height: 46px; border-radius: 13px; display: grid; place-items: center;
+      background: var(--blue-soft); color: var(--blue); margin-bottom: 22px;
+    }
+    .card .ico svg { width: 22px; height: 22px; }
+    .card h3 { margin-bottom: 10px; }
+    .card p { color: var(--muted); font-size: .95rem; }
+    .card .kpi {
+      display: inline-block; margin-top: 18px; padding: 5px 10px; border-radius: 8px;
+      font-family: var(--mono); font-size: .74rem; color: var(--blue); background: var(--blue-soft);
     }
 
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      align-items: center;
-      gap: 60px;
+    /* ---------- How it works (dark) ---------- */
+    .dark { background: var(--ink); color: #c4cbdd; position: relative; overflow: hidden; }
+    .dark::before {
+      content: ""; position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(255, 255, 255, .035) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .035) 1px, transparent 1px);
+      background-size: 56px 56px;
+      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000, transparent 80%);
+              mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000, transparent 80%);
     }
+    .dark .wrap { position: relative; }
+    .dark h2, .dark h3 { color: #fff; }
+    .dark .eyebrow { color: var(--blue-bright); }
+    .dark .section-head p { color: #9aa4bf; }
 
-    .hero p {
-      max-width: 620px;
-      font-size: 1.15rem;
+    .flow { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .flow::before {
+      content: ""; position: absolute; top: 31px; left: 12%; right: 12%; height: 2px;
+      background: repeating-linear-gradient(90deg, rgba(77, 141, 255, .55) 0 8px, transparent 8px 16px);
+      background-size: 32px 2px; animation: dash 1.4s linear infinite;
     }
-
-    .hero-card {
-      position: relative;
+    @keyframes dash { to { background-position: 32px 0; } }
+    .step { position: relative; text-align: left; }
+    .step-num {
+      position: relative; z-index: 1; width: 64px; height: 64px; border-radius: 18px;
+      display: grid; place-items: center; margin-bottom: 26px;
+      background: var(--ink-2); border: 1px solid rgba(77, 141, 255, .35); color: var(--blue-bright);
+      box-shadow: 0 0 0 6px var(--ink), 0 0 40px -6px rgba(77, 141, 255, .45);
     }
+    .step-num svg { width: 26px; height: 26px; }
+    .step small { display: block; font-family: var(--mono); font-size: .74rem; color: var(--blue-bright); margin-bottom: 8px; letter-spacing: .06em; }
+    .step h3 { margin-bottom: 10px; font-size: 1.25rem; }
+    .step p { font-size: .95rem; color: #9aa4bf; max-width: 260px; }
 
-    .hero-card img {
-      border-radius: 40px;
-      box-shadow: 0 40px 100px rgba(0,0,0,0.12);
+    .pi-panel {
+      margin-top: 72px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center;
+      padding: 40px; border-radius: 22px;
+      background: linear-gradient(135deg, rgba(77, 141, 255, .1), rgba(255, 255, 255, .02));
+      border: 1px solid rgba(255, 255, 255, .08);
     }
+    .pi-panel h3 { font-size: 1.6rem; margin: 12px 0 14px; letter-spacing: -0.02em; }
+    .pi-panel p { color: #9aa4bf; }
+    .checks { list-style: none; margin-top: 22px; display: grid; gap: 12px; }
+    .checks li { display: flex; gap: 12px; align-items: flex-start; color: #d4daea; font-size: .95rem; }
+    .checks svg { width: 20px; height: 20px; flex: none; color: #4ade80; margin-top: 2px; }
 
-    .stats {
-      margin-top: 42px;
-      display: flex;
-      gap: 30px;
-      flex-wrap: wrap;
+    .ports { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; font-family: var(--mono); font-size: .8rem; }
+    .port {
+      display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 12px;
+      background: rgba(11, 16, 32, .6); border: 1px solid rgba(255, 255, 255, .07);
     }
+    .port .pico { width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center; flex: none; }
+    .port .pico svg { width: 18px; height: 18px; }
+    .port .pname { flex: 1; min-width: 0; color: #d7deef; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .port .pname small { display: block; color: #5d6886; font-size: .7rem; }
+    .port .badge { padding: 4px 10px; border-radius: 999px; font-size: .7rem; font-weight: 500; letter-spacing: .05em; flex: none; }
+    .port.ok .pico { background: rgba(34, 197, 94, .12); color: #4ade80; }
+    .port.ok .badge { background: rgba(34, 197, 94, .12); color: #4ade80; }
+    .port.no .pico { background: rgba(240, 68, 68, .12); color: #ff7a7a; }
+    .port.no .badge { background: rgba(240, 68, 68, .14); color: #ff7a7a; }
 
-    .stat {
-      display: flex;
-      flex-direction: column;
+    /* ---------- Validation ---------- */
+    .timeline { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .timeline::before {
+      content: ""; position: absolute; left: 0; right: 0; top: 11px; height: 2px;
+      background: linear-gradient(90deg, var(--blue), #7aa7ff 70%, var(--green));
+      transform-origin: left; transform: scaleX(var(--progress, 1)); transition: transform 1.4s cubic-bezier(.2, .7, .2, 1);
     }
-
-    .stat strong {
-      font-size: 1.5rem;
+    .js .timeline:not(.in)::before { --progress: 0; }
+    .stage { position: relative; padding-top: 44px; }
+    .stage::before {
+      content: ""; position: absolute; top: 4px; left: 0; width: 16px; height: 16px; border-radius: 50%;
+      background: var(--surface); border: 3px solid var(--blue); box-shadow: 0 0 0 5px var(--bg);
     }
-
-    .glass-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      backdrop-filter: blur(12px);
-      border-radius: 28px;
-      padding: 26px;
+    .stage:last-child::before { border-color: var(--green); }
+    .stage small { font-family: var(--mono); font-size: .74rem; color: var(--blue); letter-spacing: .06em; }
+    .stage:last-child small { color: #16a34a; }
+    .stage h3 { margin: 6px 0 10px; }
+    .stage p { color: var(--muted); font-size: .95rem; }
+    .verdict {
+      margin-top: 56px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+      padding: 22px 26px; border-radius: var(--radius);
+      background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow);
     }
+    .verdict .ico { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: rgba(34, 197, 94, .12); color: #16a34a; flex: none; }
+    .verdict .ico svg { width: 22px; height: 22px; }
+    .verdict p { flex: 1; min-width: 220px; color: var(--muted); }
+    .verdict p b { color: var(--navy); font-weight: 600; }
 
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      align-items: center;
+    /* ---------- Recognition ---------- */
+    .recog { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+    .recog h2 { margin: 14px 0 18px; }
+    .recog p { color: var(--muted); font-size: 1.06rem; }
+    .recog .pill { margin-top: 28px; flex-wrap: wrap; row-gap: 2px; border-radius: 18px; }
+    .recog .pill b { white-space: nowrap; }
+
+    .letter-stage { position: relative; padding: 24px 24px 40px; }
+    .letter-stage::before {
+      content: ""; position: absolute; inset: 40px 0 0 48px; border-radius: 18px;
+      background: var(--blue-soft); transform: rotate(4deg);
     }
-
-    .feature-grid {
-      margin-top: 60px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 22px;
+    .letter {
+      position: relative; background: var(--surface); border-radius: 14px; padding: 40px 40px 36px;
+      border: 1px solid var(--line); box-shadow: 0 40px 70px -40px rgba(16, 24, 40, .4);
+      transform: rotate(-2deg); transition: transform .4s ease;
     }
-
-    .feature-card {
-      padding: 26px;
-      border-radius: 24px;
-      background: rgba(255,255,255,0.55);
-      border: 1px solid var(--border);
-      transition: 0.35s ease;
+    .letter:hover { transform: rotate(0deg) translateY(-4px); }
+    .letter-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding-bottom: 22px; border-bottom: 1px solid var(--line); }
+    .letter-head img { height: 18px; width: auto; }
+    .letter-head span { font-family: var(--mono); font-size: .68rem; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; text-align: right; }
+    .letter h3 { font-size: 1.35rem; margin: 26px 0 6px; }
+    .letter .from { font-size: .85rem; color: var(--muted); margin-bottom: 22px; }
+    .bars { display: grid; gap: 10px; }
+    .bars i { display: block; height: 8px; border-radius: 4px; background: #eef1f6; }
+    .bars i:nth-child(2) { width: 94%; } .bars i:nth-child(3) { width: 97%; } .bars i:nth-child(4) { width: 62%; }
+    .letter-foot { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 30px; }
+    .sign svg { width: 150px; height: 46px; color: var(--navy); }
+    .sign small { display: block; margin-top: 4px; padding-top: 6px; border-top: 1px solid var(--line); font-size: .74rem; color: var(--muted); }
+    .wax-seal {
+      width: 84px; height: 84px; border-radius: 50%; display: grid; place-items: center; flex: none;
+      background: radial-gradient(circle at 35% 30%, #3b7bff, var(--blue) 60%, #0640a8);
+      box-shadow: 0 10px 24px -8px rgba(8, 86, 224, .7), inset 0 0 0 5px rgba(255, 255, 255, .18);
+      color: #fff; transform: rotate(-10deg);
     }
+    .wax-seal svg { width: 34px; height: 34px; }
 
-    .feature-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-    }
-
-    .feature-card h3 {
-      margin: 18px 0 10px;
-      font-size: 1.2rem;
-    }
-
-    .feature-icon {
-      width: 52px;
-      height: 52px;
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      background: var(--bg2);
-    }
-
-    .spectral-grid {
-      margin-top: 60px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 22px;
-    }
-
-    .spectral-card {
-      overflow: hidden;
-      border-radius: 28px;
-      background: white;
-      border: 1px solid var(--border);
-    }
-
-    .spectral-card .content {
-      padding: 22px;
-    }
-
-    .tag {
-      display: inline-block;
-      padding: 8px 14px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 700;
-      margin-bottom: 14px;
-    }
-
-    .uv { background: rgba(122,92,255,0.12); color: var(--uv); }
-    .ir { background: rgba(217,75,75,0.12); color: var(--ir); }
-    .pl { background: rgba(79,174,136,0.12); color: var(--pl); }
-    .wl { background: rgba(0,0,0,0.06); color: #333; }
-
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin-top: 60px;
-    }
-
-    .step {
-      padding: 40px;
-      border-radius: 28px;
-      background: white;
-      border: 1px solid var(--border);
-    }
-
-    .step-number {
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      background: var(--text);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 24px;
-      font-weight: 700;
-    }
-
-    .analysis-grid {
-      margin-top: 60px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-    }
-
-    .analysis-grid img {
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .app-showcase {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 22px;
-      margin-top: 60px;
-    }
-
-    .phone-ui {
-      background: #111;
-      border-radius: 36px;
-      padding: 14px;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.12);
-    }
-
-    .phone-ui img {
-      border-radius: 24px;
-    }
-
-    .trust-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 30px;
-      margin-top: 60px;
-    }
-
-    .usecases {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin-top: 60px;
-    }
-
-    .usecase {
-      border-radius: 28px;
-      overflow: hidden;
-      background: white;
-      border: 1px solid var(--border);
-    }
-
-    .usecase .content {
-      padding: 24px;
-    }
-
+    /* ---------- CTA ---------- */
     .cta {
-      background: #0F0F0F;
-      color: white;
-      border-radius: 40px;
-      padding: 80px;
-      position: relative;
-      overflow: hidden;
+      position: relative; overflow: hidden; border-radius: 28px; padding: 72px 56px;
+      background: var(--ink); color: #c4cbdd; text-align: center;
     }
-
-    .cta-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      gap: 40px;
+    .cta::before {
+      content: ""; position: absolute; width: 640px; height: 640px; left: 50%; top: -360px; transform: translateX(-50%);
+      background: radial-gradient(circle, rgba(77, 141, 255, .35), transparent 62%);
     }
+    .cta > * { position: relative; }
+    .cta h2 { color: #fff; max-width: 640px; margin: 0 auto 16px; }
+    .cta p { max-width: 520px; margin: 0 auto; color: #9aa4bf; font-size: 1.06rem; }
+    .cta .hero-cta { justify-content: center; }
+    .cta .btn-ghost { background: transparent; color: #fff; border-color: rgba(255, 255, 255, .2); }
+    .cta .btn-ghost:hover { border-color: rgba(255, 255, 255, .45); }
 
-    .cta p {
-      color: rgba(255,255,255,0.72);
-      max-width: 560px;
+    /* ---------- Footer ---------- */
+    .site-footer { padding: 72px 0 40px; }
+    .foot { display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; flex-wrap: wrap; padding-bottom: 40px; border-bottom: 1px solid var(--line); }
+    .foot img { height: 24px; width: auto; margin-bottom: 14px; }
+    .foot p { color: var(--muted); font-size: .93rem; max-width: 320px; }
+    .foot nav { display: flex; gap: 28px; flex-wrap: wrap; }
+    .foot nav a { font-size: .93rem; color: var(--muted); }
+    .foot nav a:hover { color: var(--navy); }
+    .legal { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-top: 24px; font-size: .84rem; color: var(--muted); }
+
+    /* ---------- Reveal ---------- */
+    .js .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s cubic-bezier(.2, .7, .2, 1); }
+    .js .reveal.in { opacity: 1; transform: none; }
+    .reveal.d1 { transition-delay: .08s; } .reveal.d2 { transition-delay: .16s; } .reveal.d3 { transition-delay: .24s; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 1080px) {
+      .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 72px; }
+      .hero-visual { max-width: 640px; }
+      .features { grid-template-columns: repeat(2, 1fr); }
+      .chip-a { left: -12px; }
+      .chip-b { right: 16px; }
     }
-
-    footer {
-      padding: 40px 0 80px;
-    }
-
-    .footer-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .logo {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--gold);
-      letter-spacing: -0.04em;
-    }
-
-    @media(max-width: 1100px) {
-      .hero-grid,
-      .two-col,
-      .cta-grid,
-      .feature-grid,
-      .spectral-grid,
-      .steps,
-      .analysis-grid,
-      .app-showcase,
-      .trust-grid,
-      .usecases {
-        grid-template-columns: 1fr 1fr;
+    @media (max-width: 860px) {
+      .section { padding: 84px 0; }
+      .menu-btn { display: inline-flex; }
+      .nav-links {
+        position: absolute; top: 72px; left: 0; right: 0;
+        flex-direction: column; align-items: stretch; gap: 4px;
+        padding: 12px 24px 24px; background: rgba(255, 255, 255, .98);
+        border-bottom: 1px solid var(--line); box-shadow: 0 24px 40px -24px rgba(16, 24, 40, .25);
+        opacity: 0; visibility: hidden; transform: translateY(-8px);
+        transition: opacity .2s ease, transform .2s ease, visibility .2s;
       }
+      .menu-open .nav-links { opacity: 1; visibility: visible; transform: none; }
+      .nav-links a:not(.btn) { padding: 12px 0; font-size: 1rem; border-bottom: 1px solid var(--line); }
+      .nav-links .btn { justify-content: center; margin-top: 12px; padding: 14px 18px; }
+      .flow { grid-template-columns: repeat(2, 1fr); row-gap: 48px; }
+      .flow::before { display: none; }
+      .pi-panel { grid-template-columns: 1fr; padding: 28px; gap: 32px; }
+      .timeline { grid-template-columns: 1fr 1fr; row-gap: 40px; }
+      .timeline::before { display: none; }
+      .recog { grid-template-columns: 1fr; gap: 48px; }
+    }
+    @media (max-width: 600px) {
+      .wrap { padding: 0 16px; }
+      .hero { padding: 48px 0 80px; }
+      .hero-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .hero-stats div { padding-right: 12px; margin-right: 12px; }
+      .hero-stats strong { font-size: 1.3rem; }
+      .hero-stats span { font-size: .8rem; display: block; line-height: 1.35; margin-top: 2px; }
+      .features, .flow, .timeline { grid-template-columns: 1fr; }
+      .line { grid-template-columns: 74px 52px 1fr 16px; gap: 8px; padding: 6px 14px; }
+      .line .src { display: none; }
+      .console { font-size: .7rem; }
+      .console-foot { grid-template-columns: 1fr 1fr; }
+      .console-foot div:nth-child(2) { border-right: 0; }
+      .console-foot div:nth-child(-n+2) { border-bottom: 1px solid rgba(255, 255, 255, .07); }
+      .float-chip { display: none; }
+      .letter { padding: 28px 24px; }
+      .pi-panel { padding: 22px 18px; }
+      .port { gap: 10px; padding: 12px; }
+      .letter-stage { padding: 12px 8px 28px; }
+      .cta { padding: 56px 24px; border-radius: 22px; }
     }
 
-    @media(max-width: 768px) {
-      section {
-        padding: 70px 0;
-      }
-
-      .hero-grid,
-      .two-col,
-      .feature-grid,
-      .spectral-grid,
-      .steps,
-      .analysis-grid,
-      .app-showcase,
-      .trust-grid,
-      .usecases,
-      .cta-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .cta {
-        padding: 50px 30px;
-      }
-
-      h1 {
-        line-height: 1;
-      }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .js .reveal { opacity: 1; transform: none; }
+      .js .timeline:not(.in)::before { --progress: 1; }
     }
   </style>
 </head>
 <body>
 
-  <section class="hero">
-    <div class="container hero-grid">
-      <div>
-        <div class="eyebrow">Computational Dermatology Imaging</div>
-        <h1>Clinical Grade Skin Imaging.<br>Powered By Your Phone.</h1>
-        <p>
-          GlowwSkin transforms your smartphone into a precision dermatology imaging app using computational optics, controlled multispectral lighting, and AI powered skin analysis.
-        </p>
+  <!-- Reusable icons -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.6-3.3 8.4-8 9-4.7-.6-8-4.4-8-9V6l8-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></symbol>
+      <symbol id="i-route" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="5" r="2.5"/><path d="M8.5 19H16a3.5 3.5 0 0 0 0-7H8a3.5 3.5 0 0 1 0-7h7.5"/></symbol>
+      <symbol id="i-chip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><circle cx="12" cy="16" r="1.3" fill="currentColor"/></symbol>
+      <symbol id="i-capture" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></symbol>
+      <symbol id="i-seal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 13h6"/><circle cx="17" cy="16" r="2"/></symbol>
+      <symbol id="i-extract" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></symbol>
+      <symbol id="i-verify" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/><path d="M8 11l2 2 4-4"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5 5.5-6"/></symbol>
+      <symbol id="i-usb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v14"/><path d="M9 5l3-3 3 3"/><path d="M12 16l-4-3V9M12 13l4-2V8"/><circle cx="12" cy="19" r="2.5"/></symbol>
+      <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+      <symbol id="i-power" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M7.5 6.8a7 7 0 1 0 9 0"/><path d="M12 3v8"/></symbol>
+      <symbol id="i-award" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8.5 14L7 22l5-3 5 3-1.5-8"/></symbol>
+    </defs>
+  </svg>
 
-        <div class="btns">
-          <a href="#technology" class="btn btn-primary">See Your Skin Differently</a>
-          <a href="#spectral" class="btn btn-secondary">View Technology</a>
-        </div>
-
-        <div class="stats">
-          <div class="stat">
-            <strong>4</strong>
-            <span>Imaging Modes</span>
-          </div>
-          <div class="stat">
-            <strong>RAW</strong>
-            <span>Capture Pipeline</span>
-          </div>
-          <div class="stat">
-            <strong>AI</strong>
-            <span>Analysis Engine</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="hero-card">
-        <img src="images/hero-render.png" alt="GlowwSkin Hero Product">
-      </div>
+  <header class="site-header" id="top">
+    <div class="wrap nav">
+      <a href="#top" class="brand" aria-label="Voltroen home">
+        <img src="assets/logo.png" alt="Voltroen" width="1184" height="184" />
+      </a>
+      <button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links"><span></span></button>
+      <nav class="nav-links" id="nav-links" aria-label="Primary">
+        <a href="#platform">Platform</a>
+        <a href="#how">How it works</a>
+        <a href="#validation">Validation</a>
+        <a href="#recognition">Recognition</a>
+        <a href="#platform" class="btn btn-primary">Explore Cyber Black Box</a>
+      </nav>
     </div>
-  </section>
+  </header>
 
-  <section id="technology">
-    <div class="container">
-      <div class="two-col">
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="wrap hero-grid">
         <div>
-          <div class="eyebrow">Product Design</div>
-          <h2>Built Around Controlled Imaging.</h2>
-          <p>
-            GlowwSkin uses your phone’s existing rear camera with a precision aligned macro optic, conical imaging chamber, and controlled multispectral lighting system to create repeatable dermatology grade captures.
+          <span class="pill reveal"><span class="dot"></span><b>Cyber Black Box</b> Tamper-evident logging</span>
+          <h1 class="reveal d1">Every log sealed.<br /><span class="accent">Every device</span> accounted for.</h1>
+          <p class="hero-lede reveal d2">
+            Voltroen's Cyber Black Box server records what happens on your critical systems with built-in
+            tamper detection and secure pathways, while a Raspberry Pi 5 node extracts logs safely and
+            locks out every device that isn't authorized.
           </p>
-        </div>
-
-        <div class="glass-card">
-          <img src="images/exploded-view.png" alt="Exploded Product View">
-        </div>
-      </div>
-
-      <div class="feature-grid">
-        <div class="feature-card">
-          <div class="feature-icon">O</div>
-          <h3>Precision Optics</h3>
-          <p>Macro lens alignment optimized for detailed skin texture and pore visualization.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">UV</div>
-          <h3>Multispectral Lighting</h3>
-          <p>White, UV, IR, and polarized imaging modes reveal different skin structures.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">AI</div>
-          <h3>AI Analysis</h3>
-          <p>Computational segmentation, redness mapping, and texture analysis pipelines.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">R</div>
-          <h3>Repeatable Imaging</h3>
-          <p>Controlled geometry and illumination designed for consistent longitudinal scans.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="spectral">
-    <div class="container">
-      <div class="eyebrow">Multispectral Imaging</div>
-      <h2>See What Standard Cameras Miss.</h2>
-
-      <div class="spectral-grid">
-        <div class="spectral-card">
-          <img src="images/white-light.png" alt="White Light Imaging">
-          <div class="content">
-            <span class="tag wl">White Light</span>
-            <h3>Natural Skin Visualization</h3>
-            <p>Balanced clinical imaging for baseline skin texture and pigmentation analysis.</p>
+          <div class="hero-cta reveal d3">
+            <a href="#platform" class="btn btn-primary">Explore the platform <svg><use href="#i-arrow"/></svg></a>
+            <a href="#how" class="btn btn-ghost">See how it works</a>
+          </div>
+          <div class="hero-stats reveal d3">
+            <div><strong>2500+</strong><span>Logs secured</span></div>
+            <div><strong>Pi 5</strong><span>Secure extraction</span></div>
+            <div><strong>4-stage</strong><span>Feasibility validation</span></div>
           </div>
         </div>
 
-        <div class="spectral-card">
-          <img src="images/uv-light.png" alt="UV Imaging">
-          <div class="content">
-            <span class="tag uv">UV Imaging</span>
-            <h3>Surface Fluorescence</h3>
-            <p>Highlights pigmentation, acne regions, and UV sensitive surface structures.</p>
-          </div>
-        </div>
-
-        <div class="spectral-card">
-          <img src="images/ir-light.png" alt="IR Imaging">
-          <div class="content">
-            <span class="tag ir">IR Imaging</span>
-            <h3>Subsurface Insights</h3>
-            <p>Enhances visibility of deeper texture and vascular patterns beneath the skin surface.</p>
-          </div>
-        </div>
-
-        <div class="spectral-card">
-          <img src="images/polarized-light.png" alt="Polarized Imaging">
-          <div class="content">
-            <span class="tag pl">Polarized</span>
-            <h3>Reduced Surface Glare</h3>
-            <p>Suppresses reflections to improve fine texture and pore visibility.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="container">
-      <div class="eyebrow">How It Works</div>
-      <h2>Attach. Capture. Analyze.</h2>
-
-      <div class="steps">
-        <div class="step">
-          <div class="step-number">1</div>
-          <h3>Attach</h3>
-          <p>Secure the GlowwSkin imaging chamber directly over the smartphone rear camera using the precision clip mechanism.</p>
-        </div>
-
-        <div class="step">
-          <div class="step-number">2</div>
-          <h3>Capture</h3>
-          <p>Controlled multispectral illumination and RAW imaging pipelines generate repeatable skin captures.</p>
-        </div>
-
-        <div class="step">
-          <div class="step-number">3</div>
-          <h3>Analyze</h3>
-          <p>AI powered analysis extracts insights from texture, pigmentation, redness, and pore distribution.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="container">
-      <div class="eyebrow">AI Analysis</div>
-      <h2>Computational Dermatology Insights.</h2>
-
-      <div class="analysis-grid">
-        <img src="images/analysis-redness.png" alt="Redness Mapping">
-        <img src="images/analysis-pores.png" alt="Pore Mapping">
-        <img src="images/analysis-pigmentation.png" alt="Pigmentation Mapping">
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="container">
-      <div class="eyebrow">App Experience</div>
-      <h2>Built For Repeatable Tracking.</h2>
-
-      <div class="app-showcase">
-        <div class="phone-ui">
-          <img src="images/ui-scan.png" alt="Scan UI">
-        </div>
-
-        <div class="phone-ui">
-          <img src="images/ui-results.png" alt="Results UI">
-        </div>
-
-        <div class="phone-ui">
-          <img src="images/ui-dashboard.png" alt="Dashboard UI">
-        </div>
-
-        <div class="phone-ui">
-          <img src="images/ui-history.png" alt="History UI">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="container">
-      <div class="eyebrow">Technical Trust</div>
-      <h2>Engineered For Controlled Imaging.</h2>
-
-      <div class="trust-grid">
-        <div class="glass-card">
-          <img src="images/controlled-lighting.png" alt="Controlled Lighting">
-          <h3 style="margin-top: 24px;">Controlled Illumination</h3>
-          <p>
-            Conical chamber geometry reduces ambient light contamination and improves capture consistency.
-          </p>
-        </div>
-
-        <div class="glass-card">
-          <img src="images/raw-vs-processed.png" alt="RAW Comparison">
-          <h3 style="margin-top: 24px;">RAW Capture Pipeline</h3>
-          <p>
-            Designed around deterministic smartphone imaging workflows and controlled computational analysis.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="container">
-      <div class="eyebrow">Use Cases</div>
-      <h2>Built For Modern Skin Intelligence.</h2>
-
-      <div class="usecases">
-        <div class="usecase">
-          <img src="images/usecase-skincare.png" alt="Skincare Tracking">
-          <div class="content">
-            <h3>Skincare Tracking</h3>
-            <p>Monitor texture, redness, and progress over time with consistent imaging conditions.</p>
-          </div>
-        </div>
-
-        <div class="usecase">
-          <img src="images/usecase-derm.png" alt="Dermatology Clinics">
-          <div class="content">
-            <h3>Dermatology Clinics</h3>
-            <p>Portable skin analysis workflows designed for consultations and teledermatology use cases.</p>
-          </div>
-        </div>
-
-        <div class="usecase">
-          <img src="images/usecase-analysis.png" alt="AI Skin Analysis">
-          <div class="content">
-            <h3>AI Skin Analysis</h3>
-            <p>Computational overlays provide structured visualization of key skin characteristics.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="container">
-      <div class="cta">
-        <div class="cta-grid">
-          <div>
-            <div class="eyebrow">GlowwSkin</div>
-            <h2>The Future of Skin Imaging Fits In Your Pocket.</h2>
-            <p>
-              Precision optics, multispectral imaging, controlled lighting, and AI powered dermatology insights — all powered by your smartphone.
-            </p>
-
-            <div class="btns">
-              <a href="#" class="btn btn-primary">Join The Future</a>
+        <div class="hero-visual reveal d2">
+          <div class="console" id="console" aria-label="Simulated Cyber Black Box log stream" role="img">
+            <div class="console-bar">
+              <div class="lights"><i></i><i></i><i></i></div>
+              <div class="console-title">cbb-server-01 · /var/log/blackbox</div>
+              <div class="integrity" id="integrity"><span class="dot"></span><span id="integrity-text">INTEGRITY OK</span></div>
+            </div>
+            <div class="log" id="log" aria-hidden="true"></div>
+            <div class="console-foot">
+              <div><small>Logs secured</small><b id="c-logs">2,486</b></div>
+              <div><small>Tamper flags</small><b id="c-tamper">0</b></div>
+              <div><small>Devices blocked</small><b id="c-blocked">0</b></div>
+              <div><small>Pi 5 extractor</small><b class="online"><span class="dot"></span>online</b></div>
             </div>
           </div>
-
-          <div>
-            <img src="images/cta-render.png" alt="GlowwSkin CTA Render">
+          <div class="float-chip chip-b">
+            <span class="ico"><svg><use href="#i-shield"/></svg></span>
+            <span>Tamper detected<small>Record flagged instantly</small></span>
+          </div>
+          <div class="float-chip chip-a">
+            <span class="ico"><svg><use href="#i-lock"/></svg></span>
+            <span>Unknown USB denied<small>Allow-listed devices only</small></span>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <footer>
-    <div class="container footer-row">
-      <div class="logo">GlowwSkin</div>
-      <p>Computational dermatology imaging app.</p>
+    <!-- Platform -->
+    <section class="section" id="platform">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">The platform</span>
+          <h2>A log server that knows when it's been touched.</h2>
+          <p>The Cyber Black Box keeps an honest record of what happened, protects the routes that record travels
+            on, and refuses to talk to hardware it doesn't recognise.</p>
+        </div>
+        <div class="features">
+          <article class="card reveal">
+            <div class="ico"><svg><use href="#i-shield"/></svg></div>
+            <h3>Tamper detection</h3>
+            <p>Records are sealed as they're written. Any edit, deletion or reordering is detected and flagged, not silently accepted.</p>
+            <span class="kpi">integrity: verified</span>
+          </article>
+          <article class="card reveal d1">
+            <div class="ico"><svg><use href="#i-route"/></svg></div>
+            <h3>Secure log pathways</h3>
+            <p>Logs move from source to storage over guarded pathways, so nothing is lost, injected or altered in transit.</p>
+            <span class="kpi">2500+ logs secured</span>
+          </article>
+          <article class="card reveal d2">
+            <div class="ico"><svg><use href="#i-chip"/></svg></div>
+            <h3>Raspberry Pi 5 extraction</h3>
+            <p>A dedicated, hardened Raspberry Pi 5 handles log extraction, so the black box itself is never opened up for direct access.</p>
+            <span class="kpi">extractor: online</span>
+          </article>
+          <article class="card reveal d3">
+            <div class="ico"><svg><use href="#i-lock"/></svg></div>
+            <h3>Device lockdown</h3>
+            <p>Only approved hardware can connect. Unauthorized devices are blocked before they can read a single record.</p>
+            <span class="kpi">unknown → denied</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="section dark" id="how">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">How it works</span>
+          <h2>From event to evidence in four steps.</h2>
+          <p>Every record follows the same guarded path: captured, sealed, extracted and verified, with no
+            back door along the way.</p>
+        </div>
+
+        <div class="flow">
+          <div class="step reveal">
+            <div class="step-num"><svg><use href="#i-capture"/></svg></div>
+            <small>STEP 01</small>
+            <h3>Capture</h3>
+            <p>Events from connected systems stream into the Cyber Black Box server as they happen.</p>
+          </div>
+          <div class="step reveal d1">
+            <div class="step-num"><svg><use href="#i-seal"/></svg></div>
+            <small>STEP 02</small>
+            <h3>Seal</h3>
+            <p>Each entry is sealed on write, so any later change, removal or reordering becomes detectable.</p>
+          </div>
+          <div class="step reveal d2">
+            <div class="step-num"><svg><use href="#i-extract"/></svg></div>
+            <small>STEP 03</small>
+            <h3>Extract</h3>
+            <p>The Raspberry Pi 5 node pulls logs out over a secure pathway. Nobody plugs into the box directly.</p>
+          </div>
+          <div class="step reveal d3">
+            <div class="step-num"><svg><use href="#i-verify"/></svg></div>
+            <small>STEP 04</small>
+            <h3>Verify</h3>
+            <p>Extracted logs are checked against their seals, and any sign of tampering is flagged straight away.</p>
+          </div>
+        </div>
+
+        <div class="pi-panel reveal">
+          <div>
+            <span class="eyebrow">Edge extraction node</span>
+            <h3>Raspberry Pi 5, configured to say no.</h3>
+            <p>Log extraction runs on a purpose-configured Raspberry Pi 5 that acts as the only door to the
+              black box, and keeps that door shut to anything it doesn't trust.</p>
+            <ul class="checks">
+              <li><svg><use href="#i-check"/></svg>Secure, controlled extraction of stored logs</li>
+              <li><svg><use href="#i-check"/></svg>Unauthorized USB and network devices blocked</li>
+              <li><svg><use href="#i-check"/></svg>Black box server never exposed for direct access</li>
+            </ul>
+          </div>
+          <div class="ports" aria-label="Example device access decisions">
+            <div class="port ok">
+              <span class="pico"><svg><use href="#i-chip"/></svg></span>
+              <span class="pname">pi5-extractor<small>authorized node · eth0</small></span>
+              <span class="badge">ALLOWED</span>
+            </div>
+            <div class="port no">
+              <span class="pico"><svg><use href="#i-usb"/></svg></span>
+              <span class="pname">usb mass-storage<small>unknown vendor · port 2</small></span>
+              <span class="badge">BLOCKED</span>
+            </div>
+            <div class="port no">
+              <span class="pico"><svg><use href="#i-usb"/></svg></span>
+              <span class="pname">usb serial adapter<small>not on allow-list · port 3</small></span>
+              <span class="badge">BLOCKED</span>
+            </div>
+            <div class="port no">
+              <span class="pico"><svg><use href="#i-x"/></svg></span>
+              <span class="pname">unregistered host<small>unknown MAC · eth1</small></span>
+              <span class="badge">BLOCKED</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Validation -->
+    <section class="section" id="validation">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">Validation</span>
+          <h2>Proven outside the lab, not just inside it.</h2>
+          <p>Product feasibility was validated end to end, from the first prototype through to real-world use.</p>
+        </div>
+        <div class="timeline" id="timeline">
+          <div class="stage reveal">
+            <small>01 · PROTOTYPING</small>
+            <h3>Prototyping</h3>
+            <p>Early builds proved the core idea: a log server that can tell when its records have been touched.</p>
+          </div>
+          <div class="stage reveal d1">
+            <small>02 · INTEGRATION</small>
+            <h3>Integration</h3>
+            <p>The server, the Pi 5 extraction node and the device controls were brought together as one system.</p>
+          </div>
+          <div class="stage reveal d2">
+            <small>03 · TESTING</small>
+            <h3>Testing</h3>
+            <p>Tamper attempts, rogue devices and failure cases were exercised on purpose to find the weak spots.</p>
+          </div>
+          <div class="stage reveal d3">
+            <small>04 · REAL WORLD</small>
+            <h3>Real-world validation</h3>
+            <p>Run under real operating conditions to confirm the product holds up beyond the test bench.</p>
+          </div>
+        </div>
+        <div class="verdict reveal">
+          <span class="ico"><svg><use href="#i-check"/></svg></span>
+          <p><b>Feasibility validated.</b> Prototyping, integration, testing and real-world validation confirmed the Cyber Black Box works as a product, not just a proof of concept.</p>
+          <a href="#how" class="btn btn-ghost">Review the pipeline <svg><use href="#i-arrow"/></svg></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recognition -->
+    <section class="section" id="recognition" style="padding-top: 24px;">
+      <div class="wrap recog">
+        <div class="reveal">
+          <span class="eyebrow">Recognition</span>
+          <h2>Recognized by the CEO's Office.</h2>
+          <p>The Cyber Black Box work earned a <strong>Letter of Recommendation from the CEO's Office</strong>,
+            an early signal of outstanding performance on a product built to be trusted.</p>
+          <span class="pill"><svg width="16" height="16" style="color: var(--blue)"><use href="#i-award"/></svg><b>Letter of Recommendation</b> Office of the CEO</span>
+        </div>
+        <div class="letter-stage reveal d1" aria-hidden="true">
+          <div class="letter">
+            <div class="letter-head">
+              <img src="assets/logo.png" alt="" width="1184" height="184" />
+              <span>Office of the CEO</span>
+            </div>
+            <h3>Letter of Recommendation</h3>
+            <div class="from">For outstanding performance · Cyber Black Box</div>
+            <div class="bars"><i></i><i></i><i></i><i></i></div>
+            <div class="letter-foot">
+              <div class="sign">
+                <svg viewBox="0 0 150 46" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 34c8-2 14-18 18-26 2-4 4 0 2 6-3 10-6 22-3 22 4 0 10-16 14-16 3 0 0 12 4 12 5 0 9-10 13-10 3 0 1 8 5 8 6 0 10-8 16-8 4 0 3 6 8 6 8 0 14-6 22-8 6-2 12-1 18 0"/>
+                </svg>
+                <small>Office of the CEO, Voltroen</small>
+              </div>
+              <div class="wax-seal"><svg><use href="#i-power"/></svg></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section" style="padding-top: 24px;">
+      <div class="wrap">
+        <div class="cta reveal">
+          <span class="eyebrow">Cyber Black Box</span>
+          <h2 style="margin-top: 16px;">When something goes wrong, the black box remembers.</h2>
+          <p>Exactly as it happened, sealed, extracted safely and out of reach of anyone who shouldn't touch it.</p>
+          <div class="hero-cta">
+            <a href="#platform" class="btn btn-primary">Explore the platform <svg><use href="#i-arrow"/></svg></a>
+            <a href="#top" class="btn btn-ghost">Back to top</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="foot">
+        <div>
+          <img src="assets/logo.png" alt="Voltroen" width="1184" height="184" />
+          <p>Tamper-evident logging and secure log extraction for systems that can't afford to lose a record.</p>
+        </div>
+        <nav aria-label="Footer">
+          <a href="#platform">Platform</a>
+          <a href="#how">How it works</a>
+          <a href="#validation">Validation</a>
+          <a href="#recognition">Recognition</a>
+        </nav>
+      </div>
+      <div class="legal">
+        <span>© <span id="year">2026</span> Voltroen. All rights reserved.</span>
+        <span>Cyber Black Box</span>
+      </div>
     </div>
   </footer>
 
+  <script>
+    (function () {
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      /* Header shadow + mobile menu */
+      var header = document.querySelector('.site-header');
+      var menuBtn = document.querySelector('.menu-btn');
+      function onScroll() { header.classList.toggle('scrolled', window.scrollY > 8); }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+      function setMenu(open) {
+        header.classList.toggle('menu-open', open);
+        menuBtn.setAttribute('aria-expanded', String(open));
+        menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      }
+      menuBtn.addEventListener('click', function () { setMenu(!header.classList.contains('menu-open')); });
+      document.querySelectorAll('.nav-links a').forEach(function (a) {
+        a.addEventListener('click', function () { setMenu(false); });
+      });
+
+      /* Reveal on scroll */
+      var revealables = document.querySelectorAll('.reveal, .timeline');
+      if ('IntersectionObserver' in window && !reduceMotion) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+          });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+        revealables.forEach(function (el) { io.observe(el); });
+      } else {
+        revealables.forEach(function (el) { el.classList.add('in'); });
+      }
+
+      /* Simulated log stream */
+      var log = document.getElementById('log');
+      var badge = document.getElementById('integrity');
+      var badgeText = document.getElementById('integrity-text');
+      var cLogs = document.getElementById('c-logs');
+      var cTamper = document.getElementById('c-tamper');
+      var cBlocked = document.getElementById('c-blocked');
+      var MAX_LINES = 9;
+      var counts = { logs: 2486, tamper: 0, blocked: 0 };
+      var batch = 311;
+      var clock = new Date();
+      clock.setHours(14, 2, 11, 204);
+
+      var SEALS = [
+        ['auth.svc', 'login accepted · uid 1042'],
+        ['net.gw', 'route table updated'],
+        ['plc.bus', 'telemetry frame stored'],
+        ['sys.kern', 'watchdog heartbeat'],
+        ['cfg.mgr', 'config snapshot written'],
+        ['door.ctl', 'access event recorded'],
+        ['pwr.mon', 'voltage sample logged'],
+        ['ssh.d', 'session closed · admin']
+      ];
+      var BLOCKS = [
+        ['usb.guard', 'unknown device 1a86:7523 denied'],
+        ['usb.guard', 'mass-storage device rejected'],
+        ['eth.guard', 'unregistered MAC refused']
+      ];
+      var ALERTS = [
+        function () { return ['integrity', 'record #' + (counts.logs - 213) + ' altered → flagged']; },
+        function () { return ['integrity', 'delete attempt on #' + (counts.logs - 618) + ' → flagged']; },
+        function () { return ['integrity', 'out-of-order write rejected']; }
+      ];
+
+      function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+      function fmt(n) { return n.toLocaleString('en-US'); }
+      function pad(n, w) { return String(n).padStart(w || 2, '0'); }
+      function stamp() {
+        clock = new Date(clock.getTime() + 180 + Math.floor(Math.random() * 900));
+        return pad(clock.getHours()) + ':' + pad(clock.getMinutes()) + ':' + pad(clock.getSeconds()) + '.' + pad(clock.getMilliseconds(), 3);
+      }
+
+      var lastKind = '';
+      function nextEvent() {
+        var r = Math.random();
+        var kind = r < 0.58 ? 'seal' : r < 0.74 ? 'extr' : r < 0.9 ? 'block' : 'alert';
+        if (kind === lastKind && kind !== 'seal') kind = 'seal';
+        lastKind = kind;
+        if (kind === 'seal') { counts.logs++; var s = pick(SEALS); return { kind: kind, tag: 'SEAL', src: s[0], msg: s[1], st: '✓' }; }
+        if (kind === 'extr') { batch++; return { kind: kind, tag: 'EXTR', src: 'pi5.extract', msg: 'batch #' + batch + ' pulled · 64 records', st: '✓' }; }
+        if (kind === 'block') { counts.blocked++; var b = pick(BLOCKS); return { kind: kind, tag: 'BLOCK', src: b[0], msg: b[1], st: '⨯' }; }
+        counts.tamper++; var a = pick(ALERTS)(); return { kind: kind, tag: 'ALERT', src: a[0], msg: a[1], st: '!' };
+      }
+
+      function render(ev, animate) {
+        var row = document.createElement('div');
+        row.className = 'line ' + ev.kind + (animate ? ' new' : '');
+        [['t', stamp()], ['tag', ev.tag], ['src', ev.src], ['msg', ev.msg], ['st', ev.st]].forEach(function (c) {
+          var span = document.createElement('span');
+          span.className = c[0];
+          span.textContent = c[1];
+          row.appendChild(span);
+        });
+        log.appendChild(row);
+        while (log.children.length > MAX_LINES) log.removeChild(log.firstChild);
+        cLogs.textContent = fmt(counts.logs);
+        cTamper.textContent = counts.tamper;
+        cBlocked.textContent = counts.blocked;
+        if (ev.kind === 'alert' && animate) {
+          badge.classList.add('alert');
+          badgeText.textContent = 'TAMPER FLAGGED';
+          clearTimeout(render.t);
+          render.t = setTimeout(function () { badge.classList.remove('alert'); badgeText.textContent = 'INTEGRITY OK'; }, 2200);
+        }
+      }
+
+      var seed = [
+        { kind: 'seal', tag: 'SEAL', src: 'auth.svc', msg: 'login accepted · uid 1042', st: '✓' },
+        { kind: 'seal', tag: 'SEAL', src: 'net.gw', msg: 'route table updated', st: '✓' },
+        { kind: 'block', tag: 'BLOCK', src: 'usb.guard', msg: 'unknown device 1a86:7523 denied', st: '⨯' },
+        { kind: 'seal', tag: 'SEAL', src: 'plc.bus', msg: 'telemetry frame stored', st: '✓' },
+        { kind: 'extr', tag: 'EXTR', src: 'pi5.extract', msg: 'batch #311 pulled · 64 records', st: '✓' },
+        { kind: 'seal', tag: 'SEAL', src: 'cfg.mgr', msg: 'config snapshot written', st: '✓' },
+        { kind: 'alert', tag: 'ALERT', src: 'integrity', msg: 'record #2291 altered → flagged', st: '!' },
+        { kind: 'seal', tag: 'SEAL', src: 'door.ctl', msg: 'access event recorded', st: '✓' },
+        { kind: 'seal', tag: 'SEAL', src: 'sys.kern', msg: 'watchdog heartbeat', st: '✓' }
+      ];
+      counts.logs += 6; counts.blocked = 1; counts.tamper = 1;
+      seed.forEach(function (ev) { render(ev, false); });
+      if (reduceMotion) return;
+
+      var timer = null;
+      function start() { if (!timer) timer = setInterval(function () { render(nextEvent(), true); }, 1500); }
+      function stop() { clearInterval(timer); timer = null; }
+      var consoleEl = document.getElementById('console');
+      var visible = true;
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+          visible = entries[0].isIntersecting;
+          visible && !document.hidden ? start() : stop();
+        }).observe(consoleEl);
+      } else {
+        start();
+      }
+      document.addEventListener('visibilitychange', function () {
+        document.hidden || !visible ? stop() : start();
+      });
+    })();
+  </script>
 </body>
 </html>
