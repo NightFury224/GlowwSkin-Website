@@ -3,928 +3,526 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Voltroen | Cyber Black Box</title>
-  <meta name="description" content="Voltroen's Cyber Black Box: a tamper-detecting log server with secure pathways, a Raspberry Pi 5 extraction node and lockdown against unauthorized devices." />
+  <title>Voltroen | Secure Hardware and Computational Imaging</title>
+  <meta name="description" content="Voltroen engineers hardware and software products, from Cyber Black Box, a tamper-detecting log server, to GlowwSkin, phone-based dermatology imaging." />
   <meta name="theme-color" content="#0b1020" />
-  <meta property="og:title" content="Voltroen | Cyber Black Box" />
-  <meta property="og:description" content="Every log sealed. Every device accounted for. Tamper-evident logging for critical systems." />
+  <meta property="og:title" content="Voltroen | Secure Hardware and Computational Imaging" />
+  <meta property="og:description" content="Voltroen engineers hardware and software products, from Cyber Black Box, a tamper-detecting log server, to GlowwSkin, phone-based dermatology imaging." />
   <meta property="og:image" content="assets/logo.png" />
+  <meta property="og:type" content="website" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
-  <script>document.documentElement.classList.add('js');</script>
-  <style>
-    :root {
-      --navy: #232734;
-      --ink: #0b1020;
-      --ink-2: #111830;
-      --blue: #0856e0;
-      --blue-soft: #e8f0ff;
-      --blue-bright: #4d8dff;
-      --bg: #f7f8fb;
-      --surface: #ffffff;
-      --line: #e3e7ef;
-      --text: #232734;
-      --muted: #5b6275;
-      --green: #22c55e;
-      --amber: #f5a524;
-      --red: #f04444;
-      --radius: 16px;
-      --shadow: 0 1px 2px rgba(16, 24, 40, .04), 0 12px 32px -12px rgba(16, 24, 40, .12);
-      --wrap: 1160px;
-      --head: 'Sora', 'Inter', system-ui, sans-serif;
-      --body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-      --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; }
-    * { margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; scroll-padding-top: 84px; }
-    body {
-      font-family: var(--body);
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-    img, svg { display: block; max-width: 100%; }
-    a { color: inherit; text-decoration: none; }
-    :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 6px; }
-
-    .wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
-
-    h1, h2, h3 { font-family: var(--head); color: var(--navy); line-height: 1.12; letter-spacing: -0.02em; }
-    h1 { font-size: clamp(2.3rem, 4.6vw, 3.55rem); font-weight: 700; }
-    h2 { font-size: clamp(1.9rem, 3.6vw, 2.75rem); font-weight: 700; }
-    h3 { font-size: 1.15rem; font-weight: 600; letter-spacing: -0.01em; }
-
-    .eyebrow {
-      display: inline-flex; align-items: center; gap: 10px;
-      font-family: var(--head); font-size: .78rem; font-weight: 600;
-      letter-spacing: .16em; text-transform: uppercase; color: var(--blue);
-    }
-    .eyebrow::before { content: ""; width: 22px; height: 2px; border-radius: 2px; background: currentColor; }
-
-    .section { padding: 112px 0; }
-    .section-head { max-width: 680px; margin-bottom: 56px; }
-    .section-head h2 { margin: 14px 0 16px; }
-    .section-head p { color: var(--muted); font-size: 1.08rem; }
-
-    .btn {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 14px 22px; border-radius: 999px;
-      font-weight: 600; font-size: .96rem; line-height: 1;
-      transition: transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
-    }
-    .btn svg { width: 18px; height: 18px; transition: transform .2s ease; }
-    .btn:hover svg { transform: translateX(3px); }
-    .btn-primary { background: var(--blue); color: #fff; box-shadow: 0 10px 24px -10px rgba(8, 86, 224, .7); }
-    .btn-primary:hover { background: #0a4cc4; transform: translateY(-1px); }
-    .btn-ghost { border: 1px solid var(--line); background: var(--surface); color: var(--navy); }
-    .btn-ghost:hover { border-color: #c7cfdd; transform: translateY(-1px); }
-
-    /* ---------- Header ---------- */
-    .site-header {
-      position: sticky; top: 0; z-index: 50;
-      background: rgba(247, 248, 251, .82);
-      backdrop-filter: saturate(160%) blur(14px);
-      -webkit-backdrop-filter: saturate(160%) blur(14px);
-      border-bottom: 1px solid transparent;
-      transition: border-color .25s ease, background .25s ease;
-    }
-    .site-header.scrolled { border-bottom-color: var(--line); background: rgba(255, 255, 255, .88); }
-    .nav { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 24px; }
-    .brand img { height: 26px; width: auto; }
-    .nav-links { display: flex; align-items: center; gap: 34px; }
-    .nav-links a:not(.btn) { font-size: .93rem; font-weight: 500; color: var(--muted); transition: color .2s ease; }
-    .nav-links a:not(.btn):hover { color: var(--navy); }
-    .nav-links .btn { padding: 11px 18px; font-size: .9rem; }
-    .menu-btn {
-      display: none; width: 42px; height: 42px; border-radius: 12px;
-      border: 1px solid var(--line); background: var(--surface); cursor: pointer;
-      align-items: center; justify-content: center;
-    }
-    .menu-btn span, .menu-btn span::before, .menu-btn span::after {
-      display: block; width: 18px; height: 2px; border-radius: 2px; background: var(--navy);
-      position: relative; transition: transform .25s ease, background .25s ease;
-    }
-    .menu-btn span::before, .menu-btn span::after { content: ""; position: absolute; left: 0; }
-    .menu-btn span::before { top: -6px; }
-    .menu-btn span::after { top: 6px; }
-    .menu-open .menu-btn span { background: transparent; }
-    .menu-open .menu-btn span::before { transform: translateY(6px) rotate(45deg); }
-    .menu-open .menu-btn span::after { transform: translateY(-6px) rotate(-45deg); }
-
-    /* ---------- Hero ---------- */
-    .hero { position: relative; padding: 72px 0 104px; overflow: hidden; }
-    .hero::before {
-      content: ""; position: absolute; inset: 0; z-index: -2;
-      background-image: radial-gradient(rgba(35, 39, 52, .09) 1px, transparent 1px);
-      background-size: 26px 26px;
-      -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 30%, transparent 75%);
-              mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 30%, transparent 75%);
-    }
-    .hero::after {
-      content: ""; position: absolute; z-index: -1; width: 720px; height: 720px; right: -220px; top: -260px;
-      background: radial-gradient(circle, rgba(8, 86, 224, .16), transparent 62%);
-    }
-    .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 64px; align-items: center; }
-    .hero-grid > *, .recog > *, .pi-panel > * { min-width: 0; }
-    .pill {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 7px 14px 7px 10px; border-radius: 999px;
-      background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow);
-      font-size: .84rem; font-weight: 500; color: var(--muted);
-    }
-    .pill b { color: var(--navy); font-weight: 600; }
-    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); position: relative; flex: none; }
-    .dot::after {
-      content: ""; position: absolute; inset: -4px; border-radius: 50%;
-      border: 2px solid var(--green); opacity: 0; animation: ping 2s ease-out infinite;
-    }
-    @keyframes ping { 0% { transform: scale(.4); opacity: .8; } 100% { transform: scale(1.6); opacity: 0; } }
-
-    .hero h1 { margin: 22px 0 20px; }
-    .hero h1 .accent { color: var(--blue); }
-    .hero-lede { font-size: 1.14rem; color: var(--muted); max-width: 540px; }
-    .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
-
-    .hero-stats {
-      display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 0;
-      margin-top: 44px; padding-top: 28px; border-top: 1px solid var(--line);
-    }
-    .hero-stats div { padding-right: 28px; margin-right: 28px; border-right: 1px solid var(--line); }
-    .hero-stats div:last-child { border-right: 0; margin-right: 0; padding-right: 0; }
-    .hero-stats strong { display: block; font-family: var(--head); font-size: 1.6rem; font-weight: 700; color: var(--navy); letter-spacing: -0.02em; }
-    .hero-stats span { font-size: .86rem; color: var(--muted); }
-
-    /* ---------- Console (hero visual) ---------- */
-    .console {
-      position: relative;
-      background: linear-gradient(180deg, #121a33, var(--ink));
-      border-radius: 20px; color: #c9d2e6;
-      border: 1px solid rgba(255, 255, 255, .06);
-      box-shadow: 0 40px 80px -30px rgba(11, 16, 32, .55), 0 0 0 8px rgba(255, 255, 255, .6);
-      font-family: var(--mono); font-size: .76rem;
-      overflow: hidden;
-    }
-    .console-bar {
-      display: flex; align-items: center; gap: 14px;
-      padding: 14px 18px; border-bottom: 1px solid rgba(255, 255, 255, .07);
-    }
-    .lights { display: flex; gap: 6px; }
-    .lights i { width: 10px; height: 10px; border-radius: 50%; background: #2b3450; }
-    .console-title { color: #8d97b3; flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .integrity {
-      display: inline-flex; align-items: center; gap: 8px; flex: none;
-      padding: 5px 10px; border-radius: 999px; font-weight: 500; letter-spacing: .04em;
-      background: rgba(34, 197, 94, .12); color: #4ade80; border: 1px solid rgba(34, 197, 94, .3);
-      transition: background .3s ease, color .3s ease, border-color .3s ease;
-    }
-    .integrity .dot { width: 6px; height: 6px; background: currentColor; }
-    .integrity .dot::after { border-color: currentColor; }
-    .integrity.alert { background: rgba(240, 68, 68, .14); color: #ff7a7a; border-color: rgba(240, 68, 68, .4); }
-
-    .log { padding: 10px 0; height: 292px; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; }
-    .line {
-      display: grid; grid-template-columns: 92px 58px 96px 1fr 18px; gap: 10px; align-items: center;
-      padding: 6px 18px; white-space: nowrap;
-    }
-    .line > * { overflow: hidden; text-overflow: ellipsis; }
-    .line.new { animation: lineIn .45s ease both; }
-    @keyframes lineIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-    .t { color: #5d6886; }
-    .tag { font-weight: 500; font-size: .68rem; letter-spacing: .06em; padding: 2px 0; border-radius: 4px; text-align: center; }
-    .src { color: #8d97b3; }
-    .msg { color: #d7deef; }
-    .st { text-align: right; font-weight: 500; }
-    .line.seal .tag { color: #7aa7ff; background: rgba(77, 141, 255, .12); }
-    .line.seal .st { color: #4ade80; }
-    .line.extr .tag { color: #a78bfa; background: rgba(167, 139, 250, .12); }
-    .line.extr .st { color: #4ade80; }
-    .line.block .tag { color: var(--amber); background: rgba(245, 165, 36, .12); }
-    .line.block .st { color: var(--amber); }
-    .line.alert { background: linear-gradient(90deg, rgba(240, 68, 68, .14), transparent 70%); }
-    .line.alert .tag { color: #ff7a7a; background: rgba(240, 68, 68, .16); }
-    .line.alert .msg { color: #ffb3b3; }
-    .line.alert .st { color: #ff7a7a; }
-
-    .console-foot {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      border-top: 1px solid rgba(255, 255, 255, .07); background: rgba(255, 255, 255, .02);
-    }
-    .console-foot div { padding: 14px 18px; border-right: 1px solid rgba(255, 255, 255, .07); min-width: 0; }
-    .console-foot div:last-child { border-right: 0; }
-    .console-foot small { display: block; font-size: .64rem; letter-spacing: .08em; text-transform: uppercase; color: #5d6886; white-space: nowrap; }
-    .console-foot b { display: flex; align-items: center; gap: 8px; margin-top: 4px; font-size: .95rem; font-weight: 500; color: #fff; white-space: nowrap; }
-    .console-foot .online { color: #4ade80; font-size: .82rem; }
-    .console-foot .online .dot { width: 6px; height: 6px; background: currentColor; }
-    .console-foot .online .dot::after { border-color: currentColor; }
-
-    .hero-visual { position: relative; }
-    .float-chip {
-      position: absolute; display: flex; align-items: center; gap: 10px;
-      padding: 10px 14px; border-radius: 14px; background: var(--surface);
-      border: 1px solid var(--line); box-shadow: var(--shadow);
-      font-size: .82rem; font-weight: 500; color: var(--navy); white-space: nowrap;
-    }
-    .float-chip .ico { width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; background: var(--blue-soft); color: var(--blue); }
-    .float-chip .ico svg { width: 16px; height: 16px; }
-    .float-chip small { display: block; font-size: .72rem; font-weight: 400; color: var(--muted); }
-    .chip-a { left: -36px; bottom: 64px; animation: bob 6s ease-in-out infinite; }
-    .chip-b { right: 28px; top: -58px; animation: bob 6s ease-in-out -3s infinite; }
-    @keyframes bob { 50% { transform: translateY(-8px); } }
-
-    /* ---------- Platform ---------- */
-    .features { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-    .card {
-      position: relative; background: var(--surface); border: 1px solid var(--line);
-      border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow);
-      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
-    }
-    .card:hover { transform: translateY(-4px); border-color: #cfd8ea; box-shadow: 0 24px 48px -24px rgba(16, 24, 40, .25); }
-    .card .ico {
-      width: 46px; height: 46px; border-radius: 13px; display: grid; place-items: center;
-      background: var(--blue-soft); color: var(--blue); margin-bottom: 22px;
-    }
-    .card .ico svg { width: 22px; height: 22px; }
-    .card h3 { margin-bottom: 10px; }
-    .card p { color: var(--muted); font-size: .95rem; }
-    .card .kpi {
-      display: inline-block; margin-top: 18px; padding: 5px 10px; border-radius: 8px;
-      font-family: var(--mono); font-size: .74rem; color: var(--blue); background: var(--blue-soft);
-    }
-
-    /* ---------- How it works (dark) ---------- */
-    .dark { background: var(--ink); color: #c4cbdd; position: relative; overflow: hidden; }
-    .dark::before {
-      content: ""; position: absolute; inset: 0;
-      background-image: linear-gradient(rgba(255, 255, 255, .035) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .035) 1px, transparent 1px);
-      background-size: 56px 56px;
-      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000, transparent 80%);
-              mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000, transparent 80%);
-    }
-    .dark .wrap { position: relative; }
-    .dark h2, .dark h3 { color: #fff; }
-    .dark .eyebrow { color: var(--blue-bright); }
-    .dark .section-head p { color: #9aa4bf; }
-
-    .flow { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-    .flow::before {
-      content: ""; position: absolute; top: 31px; left: 12%; right: 12%; height: 2px;
-      background: repeating-linear-gradient(90deg, rgba(77, 141, 255, .55) 0 8px, transparent 8px 16px);
-      background-size: 32px 2px; animation: dash 1.4s linear infinite;
-    }
-    @keyframes dash { to { background-position: 32px 0; } }
-    .step { position: relative; text-align: left; }
-    .step-num {
-      position: relative; z-index: 1; width: 64px; height: 64px; border-radius: 18px;
-      display: grid; place-items: center; margin-bottom: 26px;
-      background: var(--ink-2); border: 1px solid rgba(77, 141, 255, .35); color: var(--blue-bright);
-      box-shadow: 0 0 0 6px var(--ink), 0 0 40px -6px rgba(77, 141, 255, .45);
-    }
-    .step-num svg { width: 26px; height: 26px; }
-    .step small { display: block; font-family: var(--mono); font-size: .74rem; color: var(--blue-bright); margin-bottom: 8px; letter-spacing: .06em; }
-    .step h3 { margin-bottom: 10px; font-size: 1.25rem; }
-    .step p { font-size: .95rem; color: #9aa4bf; max-width: 260px; }
-
-    .pi-panel {
-      margin-top: 72px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center;
-      padding: 40px; border-radius: 22px;
-      background: linear-gradient(135deg, rgba(77, 141, 255, .1), rgba(255, 255, 255, .02));
-      border: 1px solid rgba(255, 255, 255, .08);
-    }
-    .pi-panel h3 { font-size: 1.6rem; margin: 12px 0 14px; letter-spacing: -0.02em; }
-    .pi-panel p { color: #9aa4bf; }
-    .checks { list-style: none; margin-top: 22px; display: grid; gap: 12px; }
-    .checks li { display: flex; gap: 12px; align-items: flex-start; color: #d4daea; font-size: .95rem; }
-    .checks svg { width: 20px; height: 20px; flex: none; color: #4ade80; margin-top: 2px; }
-
-    .ports { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; font-family: var(--mono); font-size: .8rem; }
-    .port {
-      display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 12px;
-      background: rgba(11, 16, 32, .6); border: 1px solid rgba(255, 255, 255, .07);
-    }
-    .port .pico { width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center; flex: none; }
-    .port .pico svg { width: 18px; height: 18px; }
-    .port .pname { flex: 1; min-width: 0; color: #d7deef; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .port .pname small { display: block; color: #5d6886; font-size: .7rem; }
-    .port .badge { padding: 4px 10px; border-radius: 999px; font-size: .7rem; font-weight: 500; letter-spacing: .05em; flex: none; }
-    .port.ok .pico { background: rgba(34, 197, 94, .12); color: #4ade80; }
-    .port.ok .badge { background: rgba(34, 197, 94, .12); color: #4ade80; }
-    .port.no .pico { background: rgba(240, 68, 68, .12); color: #ff7a7a; }
-    .port.no .badge { background: rgba(240, 68, 68, .14); color: #ff7a7a; }
-
-    /* ---------- Validation ---------- */
-    .timeline { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-    .timeline::before {
-      content: ""; position: absolute; left: 0; right: 0; top: 11px; height: 2px;
-      background: linear-gradient(90deg, var(--blue), #7aa7ff 70%, var(--green));
-      transform-origin: left; transform: scaleX(var(--progress, 1)); transition: transform 1.4s cubic-bezier(.2, .7, .2, 1);
-    }
-    .js .timeline:not(.in)::before { --progress: 0; }
-    .stage { position: relative; padding-top: 44px; }
-    .stage::before {
-      content: ""; position: absolute; top: 4px; left: 0; width: 16px; height: 16px; border-radius: 50%;
-      background: var(--surface); border: 3px solid var(--blue); box-shadow: 0 0 0 5px var(--bg);
-    }
-    .stage:last-child::before { border-color: var(--green); }
-    .stage small { font-family: var(--mono); font-size: .74rem; color: var(--blue); letter-spacing: .06em; }
-    .stage:last-child small { color: #16a34a; }
-    .stage h3 { margin: 6px 0 10px; }
-    .stage p { color: var(--muted); font-size: .95rem; }
-    .verdict {
-      margin-top: 56px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
-      padding: 22px 26px; border-radius: var(--radius);
-      background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow);
-    }
-    .verdict .ico { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: rgba(34, 197, 94, .12); color: #16a34a; flex: none; }
-    .verdict .ico svg { width: 22px; height: 22px; }
-    .verdict p { flex: 1; min-width: 220px; color: var(--muted); }
-    .verdict p b { color: var(--navy); font-weight: 600; }
-
-    /* ---------- Recognition ---------- */
-    .recog { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
-    .recog h2 { margin: 14px 0 18px; }
-    .recog p { color: var(--muted); font-size: 1.06rem; }
-    .recog .pill { margin-top: 28px; flex-wrap: wrap; row-gap: 2px; border-radius: 18px; }
-    .recog .pill b { white-space: nowrap; }
-
-    .letter-stage { position: relative; padding: 24px 24px 40px; }
-    .letter-stage::before {
-      content: ""; position: absolute; inset: 40px 0 0 48px; border-radius: 18px;
-      background: var(--blue-soft); transform: rotate(4deg);
-    }
-    .letter {
-      position: relative; background: var(--surface); border-radius: 14px; padding: 40px 40px 36px;
-      border: 1px solid var(--line); box-shadow: 0 40px 70px -40px rgba(16, 24, 40, .4);
-      transform: rotate(-2deg); transition: transform .4s ease;
-    }
-    .letter:hover { transform: rotate(0deg) translateY(-4px); }
-    .letter-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding-bottom: 22px; border-bottom: 1px solid var(--line); }
-    .letter-head img { height: 18px; width: auto; }
-    .letter-head span { font-family: var(--mono); font-size: .68rem; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; text-align: right; }
-    .letter h3 { font-size: 1.35rem; margin: 26px 0 6px; }
-    .letter .from { font-size: .85rem; color: var(--muted); margin-bottom: 22px; }
-    .bars { display: grid; gap: 10px; }
-    .bars i { display: block; height: 8px; border-radius: 4px; background: #eef1f6; }
-    .bars i:nth-child(2) { width: 94%; } .bars i:nth-child(3) { width: 97%; } .bars i:nth-child(4) { width: 62%; }
-    .letter-foot { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 30px; }
-    .sign svg { width: 150px; height: 46px; color: var(--navy); }
-    .sign small { display: block; margin-top: 4px; padding-top: 6px; border-top: 1px solid var(--line); font-size: .74rem; color: var(--muted); }
-    .wax-seal {
-      width: 84px; height: 84px; border-radius: 50%; display: grid; place-items: center; flex: none;
-      background: radial-gradient(circle at 35% 30%, #3b7bff, var(--blue) 60%, #0640a8);
-      box-shadow: 0 10px 24px -8px rgba(8, 86, 224, .7), inset 0 0 0 5px rgba(255, 255, 255, .18);
-      color: #fff; transform: rotate(-10deg);
-    }
-    .wax-seal svg { width: 34px; height: 34px; }
-
-    /* ---------- CTA ---------- */
-    .cta {
-      position: relative; overflow: hidden; border-radius: 28px; padding: 72px 56px;
-      background: var(--ink); color: #c4cbdd; text-align: center;
-    }
-    .cta::before {
-      content: ""; position: absolute; width: 640px; height: 640px; left: 50%; top: -360px; transform: translateX(-50%);
-      background: radial-gradient(circle, rgba(77, 141, 255, .35), transparent 62%);
-    }
-    .cta > * { position: relative; }
-    .cta h2 { color: #fff; max-width: 640px; margin: 0 auto 16px; }
-    .cta p { max-width: 520px; margin: 0 auto; color: #9aa4bf; font-size: 1.06rem; }
-    .cta .hero-cta { justify-content: center; }
-    .cta .btn-ghost { background: transparent; color: #fff; border-color: rgba(255, 255, 255, .2); }
-    .cta .btn-ghost:hover { border-color: rgba(255, 255, 255, .45); }
-
-    /* ---------- Footer ---------- */
-    .site-footer { padding: 72px 0 40px; }
-    .foot { display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; flex-wrap: wrap; padding-bottom: 40px; border-bottom: 1px solid var(--line); }
-    .foot img { height: 24px; width: auto; margin-bottom: 14px; }
-    .foot p { color: var(--muted); font-size: .93rem; max-width: 320px; }
-    .foot nav { display: flex; gap: 28px; flex-wrap: wrap; }
-    .foot nav a { font-size: .93rem; color: var(--muted); }
-    .foot nav a:hover { color: var(--navy); }
-    .legal { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-top: 24px; font-size: .84rem; color: var(--muted); }
-
-    /* ---------- Reveal ---------- */
-    .js .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s cubic-bezier(.2, .7, .2, 1); }
-    .js .reveal.in { opacity: 1; transform: none; }
-    .reveal.d1 { transition-delay: .08s; } .reveal.d2 { transition-delay: .16s; } .reveal.d3 { transition-delay: .24s; }
-
-    /* ---------- Responsive ---------- */
-    @media (max-width: 1080px) {
-      .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 72px; }
-      .hero-visual { max-width: 640px; }
-      .features { grid-template-columns: repeat(2, 1fr); }
-      .chip-a { left: -12px; }
-      .chip-b { right: 16px; }
-    }
-    @media (max-width: 860px) {
-      .section { padding: 84px 0; }
-      .menu-btn { display: inline-flex; }
-      .nav-links {
-        position: absolute; top: 72px; left: 0; right: 0;
-        flex-direction: column; align-items: stretch; gap: 4px;
-        padding: 12px 24px 24px; background: rgba(255, 255, 255, .98);
-        border-bottom: 1px solid var(--line); box-shadow: 0 24px 40px -24px rgba(16, 24, 40, .25);
-        opacity: 0; visibility: hidden; transform: translateY(-8px);
-        transition: opacity .2s ease, transform .2s ease, visibility .2s;
-      }
-      .menu-open .nav-links { opacity: 1; visibility: visible; transform: none; }
-      .nav-links a:not(.btn) { padding: 12px 0; font-size: 1rem; border-bottom: 1px solid var(--line); }
-      .nav-links .btn { justify-content: center; margin-top: 12px; padding: 14px 18px; }
-      .flow { grid-template-columns: repeat(2, 1fr); row-gap: 48px; }
-      .flow::before { display: none; }
-      .pi-panel { grid-template-columns: 1fr; padding: 28px; gap: 32px; }
-      .timeline { grid-template-columns: 1fr 1fr; row-gap: 40px; }
-      .timeline::before { display: none; }
-      .recog { grid-template-columns: 1fr; gap: 48px; }
-    }
-    @media (max-width: 600px) {
-      .wrap { padding: 0 16px; }
-      .hero { padding: 48px 0 80px; }
-      .hero-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-      .hero-stats div { padding-right: 12px; margin-right: 12px; }
-      .hero-stats strong { font-size: 1.3rem; }
-      .hero-stats span { font-size: .8rem; display: block; line-height: 1.35; margin-top: 2px; }
-      .features, .flow, .timeline { grid-template-columns: 1fr; }
-      .line { grid-template-columns: 74px 52px 1fr 16px; gap: 8px; padding: 6px 14px; }
-      .line .src { display: none; }
-      .console { font-size: .7rem; }
-      .console-foot { grid-template-columns: 1fr 1fr; }
-      .console-foot div:nth-child(2) { border-right: 0; }
-      .console-foot div:nth-child(-n+2) { border-bottom: 1px solid rgba(255, 255, 255, .07); }
-      .float-chip { display: none; }
-      .letter { padding: 28px 24px; }
-      .pi-panel { padding: 22px 18px; }
-      .port { gap: 10px; padding: 12px; }
-      .letter-stage { padding: 12px 8px 28px; }
-      .cta { padding: 56px 24px; border-radius: 22px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *, *::before, *::after { animation: none !important; transition: none !important; }
-      .js .reveal { opacity: 1; transform: none; }
-      .js .timeline:not(.in)::before { --progress: 1; }
-    }
-  </style>
+  <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.__siteReady)document.documentElement.classList.remove('js');},4000);</script>
+  <link rel="stylesheet" href="assets/css/site.css" />
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
   <!-- Reusable icons -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <defs>
       <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
-      <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.6-3.3 8.4-8 9-4.7-.6-8-4.4-8-9V6l8-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></symbol>
-      <symbol id="i-route" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="5" r="2.5"/><path d="M8.5 19H16a3.5 3.5 0 0 0 0-7H8a3.5 3.5 0 0 1 0-7h7.5"/></symbol>
-      <symbol id="i-chip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></symbol>
-      <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><circle cx="12" cy="16" r="1.3" fill="currentColor"/></symbol>
-      <symbol id="i-capture" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></symbol>
-      <symbol id="i-seal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 13h6"/><circle cx="17" cy="16" r="2"/></symbol>
-      <symbol id="i-extract" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></symbol>
-      <symbol id="i-verify" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/><path d="M8 11l2 2 4-4"/></symbol>
-      <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5 5.5-6"/></symbol>
-      <symbol id="i-usb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v14"/><path d="M9 5l3-3 3 3"/><path d="M12 16l-4-3V9M12 13l4-2V8"/><circle cx="12" cy="19" r="2.5"/></symbol>
-      <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></symbol>
       <symbol id="i-power" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M7.5 6.8a7 7 0 1 0 9 0"/><path d="M12 3v8"/></symbol>
+      <symbol id="i-ring" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M16.5 12.6a14 14 0 1 0 15 0"/><path d="M24 7v13"/></symbol>
       <symbol id="i-award" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8.5 14L7 22l5-3 5 3-1.5-8"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
     </defs>
   </svg>
 
-  <header class="site-header" id="top">
+  <header class="site-header">
     <div class="wrap nav">
       <a href="#top" class="brand" aria-label="Voltroen home">
         <img src="assets/logo.png" alt="Voltroen" width="1184" height="184" />
       </a>
       <button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links"><span></span></button>
       <nav class="nav-links" id="nav-links" aria-label="Primary">
-        <a href="#platform">Platform</a>
-        <a href="#how">How it works</a>
-        <a href="#validation">Validation</a>
+        <a href="#company">Company</a>
+        <a href="#products">Products</a>
+        <a href="#method">How we build</a>
+        <a href="#capabilities">Capabilities</a>
         <a href="#recognition">Recognition</a>
-        <a href="#platform" class="btn btn-primary">Explore Cyber Black Box</a>
+        <a href="#contact" class="btn btn-primary">Contact</a>
       </nav>
     </div>
   </header>
 
-  <main>
+  <main id="main" tabindex="-1">
     <!-- Hero -->
-    <section class="hero">
+    <section class="home-hero grid-bg" aria-labelledby="hero-title">
       <div class="wrap hero-grid">
         <div>
-          <span class="pill reveal"><span class="dot"></span><b>Cyber Black Box</b> Tamper-evident logging</span>
-          <h1 class="reveal d1">Every log sealed.<br /><span class="accent">Every device</span> accounted for.</h1>
+          <span class="idx reveal">Voltroen · Product engineering</span>
+          <h1 id="hero-title" class="reveal d1">Hardware and software, built to leave the lab.</h1>
           <p class="hero-lede reveal d2">
-            Voltroen's Cyber Black Box server records what happens on your critical systems with built-in
-            tamper detection and secure pathways, while a Raspberry Pi 5 node extracts logs safely and
-            locks out every device that isn't authorized.
+            Voltroen designs and builds products that combine devices, embedded software and the secured data
+            paths between them. Today that means a log server with tamper detection and imaging hardware that
+            turns a phone into a dermatology imaging tool. Our method runs from prototype through integration
+            and testing to real-world validation, and Cyber Black Box has completed it.
           </p>
           <div class="hero-cta reveal d3">
-            <a href="#platform" class="btn btn-primary">Explore the platform <svg><use href="#i-arrow"/></svg></a>
-            <a href="#how" class="btn btn-ghost">See how it works</a>
+            <a href="#products" class="btn btn-primary">See our products <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <a href="#method" class="btn btn-ghost">How we build</a>
           </div>
-          <div class="hero-stats reveal d3">
-            <div><strong>2500+</strong><span>Logs secured</span></div>
-            <div><strong>Pi 5</strong><span>Secure extraction</span></div>
-            <div><strong>4-stage</strong><span>Feasibility validation</span></div>
-          </div>
+          <p class="portfolio-line reveal d3">
+            <b>PORTFOLIO:</b>
+            <a href="cyber-black-box.html">Cyber Black Box</a>
+            <span aria-hidden="true">·</span>
+            <a href="#glowwskin">GlowwSkin</a>
+          </p>
         </div>
 
-        <div class="hero-visual reveal d2">
-          <div class="console" id="console" aria-label="Simulated Cyber Black Box log stream" role="img">
-            <div class="console-bar">
-              <div class="lights"><i></i><i></i><i></i></div>
-              <div class="console-title">cbb-server-01 · /var/log/blackbox</div>
-              <div class="integrity" id="integrity"><span class="dot"></span><span id="integrity-text">INTEGRITY OK</span></div>
+        <div class="hero-visual-wrap reveal d2">
+          <div class="instrument" role="img" aria-label="Illustration: a simulated Cyber Black Box log feed above an illustrative GlowwSkin imaging aperture cycling through white light, UV, IR and polarized modes">
+            <svg class="ring-motif" aria-hidden="true"><use href="#i-ring"/></svg>
+
+            <div class="tile" aria-hidden="true">
+              <div class="tile-head">
+                <span><b>Cyber Black Box</b> · Simulated feed</span>
+                <span class="integrity" id="mini-integrity"><span class="dot"></span><span class="txt">INTEGRITY OK</span></span>
+              </div>
+              <div class="mini-log" id="mini-log"></div>
             </div>
-            <div class="log" id="log" aria-hidden="true"></div>
-            <div class="console-foot">
-              <div><small>Logs secured</small><b id="c-logs">2,486</b></div>
-              <div><small>Tamper flags</small><b id="c-tamper">0</b></div>
-              <div><small>Devices blocked</small><b id="c-blocked">0</b></div>
-              <div><small>Pi 5 extractor</small><b class="online"><span class="dot"></span>online</b></div>
+
+            <div class="connector" aria-hidden="true"><span>SECURITY</span><span>IMAGING</span></div>
+
+            <div class="tile" aria-hidden="true">
+              <div class="tile-head">
+                <span><b>GlowwSkin</b> · Illustrative</span>
+                <span>4 modes</span>
+              </div>
+              <div class="aperture-row">
+                <div class="aperture" id="aperture" data-mode="1"><div class="aperture-core"></div></div>
+                <div class="readout">
+                  <div class="mode" id="aperture-mode">MODE <b>1/4</b> WHITE LIGHT</div>
+                  <div class="pips" id="aperture-pips"><i class="on"></i><i></i><i></i><i></i></div>
+                  <small>WHITE · UV · IR · POLARIZED</small>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="float-chip chip-b">
-            <span class="ico"><svg><use href="#i-shield"/></svg></span>
-            <span>Tamper detected<small>Record flagged instantly</small></span>
-          </div>
-          <div class="float-chip chip-a">
-            <span class="ico"><svg><use href="#i-lock"/></svg></span>
-            <span>Unknown USB denied<small>Allow-listed devices only</small></span>
-          </div>
+          <button type="button" class="motion-toggle" aria-pressed="false"><span class="mt-icon" aria-hidden="true"></span><span class="mt-label">Pause animation</span></button>
         </div>
       </div>
     </section>
 
-    <!-- Platform -->
-    <section class="section" id="platform">
-      <div class="wrap">
-        <div class="section-head reveal">
-          <span class="eyebrow">The platform</span>
-          <h2>A log server that knows when it's been touched.</h2>
-          <p>The Cyber Black Box keeps an honest record of what happened, protects the routes that record travels
-            on, and refuses to talk to hardware it doesn't recognise.</p>
+    <!-- At a glance -->
+    <section class="white glance" id="at-a-glance" aria-label="At a glance">
+      <div class="wrap glance-grid">
+        <div class="glance-cell reveal">
+          <div class="glance-num">2500+</div>
+          <p>logs secured by Cyber Black Box's pathways</p>
+          <span class="src-tag">Src: Cyber Black Box</span>
         </div>
-        <div class="features">
-          <article class="card reveal">
-            <div class="ico"><svg><use href="#i-shield"/></svg></div>
-            <h3>Tamper detection</h3>
-            <p>Records are sealed as they're written. Any edit, deletion or reordering is detected and flagged, not silently accepted.</p>
-            <span class="kpi">integrity: verified</span>
+        <div class="glance-cell reveal d1">
+          <div class="glance-num">4</div>
+          <p>imaging modes in GlowwSkin: white light, UV, IR, polarized</p>
+          <span class="src-tag">Src: GlowwSkin</span>
+        </div>
+        <div class="glance-cell reveal d2">
+          <div class="glance-num">4</div>
+          <p>stages from first prototype to real-world validation</p>
+          <span class="src-tag">Src: Method</span>
+        </div>
+        <div class="glance-cell reveal d3">
+          <div class="glance-num sm"><svg aria-hidden="true"><use href="#i-award"/></svg>CEO's Office</div>
+          <p>Letter of Recommendation for our Cyber Black Box work</p>
+          <span class="src-tag">Src: Recognition</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Company -->
+    <section class="section grid-bg" id="company" aria-labelledby="company-title">
+      <div class="wrap">
+        <div class="editorial">
+          <div class="reveal">
+            <span class="idx">01 — The company</span>
+            <p class="legend">SECURITY ▸ IMAGING ▸ ONE METHOD</p>
+          </div>
+          <div class="reveal d1">
+            <h2 id="company-title">Different fields. One standard.</h2>
+            <p class="statement">
+              Detecting when a log <span class="mark">has been tampered with</span>. Turning a phone camera into an
+              imaging instrument under <span class="mark">controlled light</span>. The problems look nothing alike,
+              but the work underneath is the same: hardware, embedded software and careful data handling,
+              engineered to <span class="mark">hold up outside the lab</span>.
+            </p>
+          </div>
+        </div>
+
+        <div class="principles">
+          <article class="principle reveal">
+            <span class="letter-idx">A</span>
+            <h3>Integrity by design.</h3>
+            <p>Trust shouldn't depend on good behavior. Cyber Black Box is built with tamper detection and moves logs
+              through secured pathways.</p>
+            <a class="text-link" href="cyber-black-box.html#platform">PROOF → Cyber Black Box</a>
           </article>
-          <article class="card reveal d1">
-            <div class="ico"><svg><use href="#i-route"/></svg></div>
-            <h3>Secure log pathways</h3>
-            <p>Logs move from source to storage over guarded pathways, so nothing is lost, injected or altered in transit.</p>
-            <span class="kpi">2500+ logs secured</span>
+          <article class="principle reveal d1">
+            <span class="letter-idx">B</span>
+            <h3>Closed to strangers.</h3>
+            <p>A device should refuse what it doesn't recognize. Our Raspberry Pi 5 extraction setup pulls logs out
+              securely and blocks unauthorized devices.</p>
+            <a class="text-link" href="cyber-black-box.html#how">PROOF → Cyber Black Box</a>
           </article>
-          <article class="card reveal d2">
-            <div class="ico"><svg><use href="#i-chip"/></svg></div>
-            <h3>Raspberry Pi 5 extraction</h3>
-            <p>A dedicated, hardened Raspberry Pi 5 handles log extraction, so the black box itself is never opened up for direct access.</p>
-            <span class="kpi">extractor: online</span>
-          </article>
-          <article class="card reveal d3">
-            <div class="ico"><svg><use href="#i-lock"/></svg></div>
-            <h3>Device lockdown</h3>
-            <p>Only approved hardware can connect. Unauthorized devices are blocked before they can read a single record.</p>
-            <span class="kpi">unknown → denied</span>
+          <article class="principle reveal d2">
+            <span class="letter-idx">C</span>
+            <h3>Control before analysis.</h3>
+            <p>AI is only as useful as the image underneath it. GlowwSkin aligns its optics and controls its lighting
+              first, captures in RAW, then analyzes.</p>
+            <a class="text-link" href="#glowwskin">PROOF → GlowwSkin</a>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- How it works -->
-    <section class="section dark" id="how">
+    <!-- Products -->
+    <section class="section white" id="products" aria-labelledby="products-title">
       <div class="wrap">
         <div class="section-head reveal">
-          <span class="eyebrow">How it works</span>
-          <h2>From event to evidence in four steps.</h2>
-          <p>Every record follows the same guarded path: captured, sealed, extracted and verified, with no
-            back door along the way.</p>
+          <span class="idx">02 — Products</span>
+          <h2 id="products-title">What we've built.</h2>
+          <p>One product protects the integrity of logs. The other turns a smartphone into a dermatology
+            imaging tool. Each is hardware and software working as a single product.</p>
         </div>
 
-        <div class="flow">
-          <div class="step reveal">
-            <div class="step-num"><svg><use href="#i-capture"/></svg></div>
-            <small>STEP 01</small>
-            <h3>Capture</h3>
-            <p>Events from connected systems stream into the Cyber Black Box server as they happen.</p>
-          </div>
-          <div class="step reveal d1">
-            <div class="step-num"><svg><use href="#i-seal"/></svg></div>
-            <small>STEP 02</small>
-            <h3>Seal</h3>
-            <p>Each entry is sealed on write, so any later change, removal or reordering becomes detectable.</p>
-          </div>
-          <div class="step reveal d2">
-            <div class="step-num"><svg><use href="#i-extract"/></svg></div>
-            <small>STEP 03</small>
-            <h3>Extract</h3>
-            <p>The Raspberry Pi 5 node pulls logs out over a secure pathway. Nobody plugs into the box directly.</p>
-          </div>
-          <div class="step reveal d3">
-            <div class="step-num"><svg><use href="#i-verify"/></svg></div>
-            <small>STEP 04</small>
-            <h3>Verify</h3>
-            <p>Extracted logs are checked against their seals, and any sign of tampering is flagged straight away.</p>
-          </div>
-        </div>
+        <div class="products">
+          <!-- P-01 -->
+          <article class="product dark-card reveal" id="cyber-black-box" aria-labelledby="p1-title">
+            <div class="label-bar">
+              <span class="label-id"><b>Voltroen</b> / P-01</span>
+              <span class="chips"><span class="chip">Security · Embedded</span><span class="chip ok">Feasibility validated</span></span>
+            </div>
+            <div class="visual-strip" role="group" aria-label="Simulated status readout">
+              <span class="sim-tag">Simulated</span>
+              <div class="readout-lines">
+                <div><span class="k">log</span><span class="v">✓ recorded</span></div>
+                <div><span class="k">tamper</span><span class="v">✓ none flagged</span></div>
+                <div><span class="k">device</span><span class="v no">✗ unauthorized → blocked</span></div>
+              </div>
+            </div>
+            <div class="product-body">
+              <h3 id="p1-title">Cyber Black Box</h3>
+              <p class="tagline">A log server that knows when it's been touched.</p>
+              <p class="desc">Cyber Black Box records logs with tamper detection and secured pathways. A
+                Raspberry Pi 5, configured for the job, extracts logs securely and blocks unauthorized devices.</p>
+              <dl class="specs">
+                <div><dt>Logs secured</dt><dd>2500+</dd></div>
+                <div><dt>Integrity</dt><dd>Tamper detection</dd></div>
+                <div><dt>Extraction</dt><dd>Raspberry Pi 5, secured</dd></div>
+                <div><dt>Access</dt><dd>Unauthorized devices blocked</dd></div>
+                <div><dt>Validation</dt><dd>Prototyping → integration → testing → real-world validation</dd></div>
+              </dl>
+              <p class="ribbon"><svg aria-hidden="true"><use href="#i-award"/></svg>Recognized with a Letter of Recommendation from the CEO's Office</p>
+              <div class="product-cta">
+                <a href="cyber-black-box.html" class="btn btn-light">Explore Cyber Black Box <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+              </div>
+            </div>
+          </article>
 
-        <div class="pi-panel reveal">
-          <div>
-            <span class="eyebrow">Edge extraction node</span>
-            <h3>Raspberry Pi 5, configured to say no.</h3>
-            <p>Log extraction runs on a purpose-configured Raspberry Pi 5 that acts as the only door to the
-              black box, and keeps that door shut to anything it doesn't trust.</p>
-            <ul class="checks">
-              <li><svg><use href="#i-check"/></svg>Secure, controlled extraction of stored logs</li>
-              <li><svg><use href="#i-check"/></svg>Unauthorized USB and network devices blocked</li>
-              <li><svg><use href="#i-check"/></svg>Black box server never exposed for direct access</li>
-            </ul>
-          </div>
-          <div class="ports" aria-label="Example device access decisions">
-            <div class="port ok">
-              <span class="pico"><svg><use href="#i-chip"/></svg></span>
-              <span class="pname">pi5-extractor<small>authorized node · eth0</small></span>
-              <span class="badge">ALLOWED</span>
+          <!-- P-02 -->
+          <article class="product warm reveal d1" id="glowwskin" aria-labelledby="p2-title">
+            <div class="label-bar">
+              <span class="label-id"><b>Voltroen</b> / P-02</span>
+              <span class="chips"><span class="chip">Imaging · Optics · AI</span></span>
             </div>
-            <div class="port no">
-              <span class="pico"><svg><use href="#i-usb"/></svg></span>
-              <span class="pname">usb mass-storage<small>unknown vendor · port 2</small></span>
-              <span class="badge">BLOCKED</span>
+            <div class="visual-strip" role="group" aria-label="GlowwSkin's four imaging modes">
+              <div class="lightbar">
+                <span class="w">WHITE</span><span class="uv">UV</span><span class="ir">IR</span><span class="pol">POLARIZED</span>
+              </div>
             </div>
-            <div class="port no">
-              <span class="pico"><svg><use href="#i-usb"/></svg></span>
-              <span class="pname">usb serial adapter<small>not on allow-list · port 3</small></span>
-              <span class="badge">BLOCKED</span>
+            <div class="product-body">
+              <h3 id="p2-title">GlowwSkin</h3>
+              <p class="tagline">Computational dermatology imaging, powered by a phone.</p>
+              <p class="desc">GlowwSkin turns a smartphone into a dermatology imaging tool. A conical imaging chamber
+                clips over the phone's rear camera and carries a precision-aligned macro optic and controlled
+                multispectral lighting. A RAW capture pipeline feeds AI analysis of texture, pigmentation, redness and
+                pore distribution.</p>
+              <dl class="specs">
+                <div><dt>Imaging modes</dt><dd>4: white light, UV, IR, polarized</dd></div>
+                <div><dt>Optics</dt><dd>Precision-aligned macro optic</dd></div>
+                <div><dt>Hardware</dt><dd>Conical chamber, clips over the rear camera</dd></div>
+                <div><dt>Capture</dt><dd>RAW pipeline</dd></div>
+                <div><dt>Analysis</dt><dd>Texture, pigmentation, redness, pore distribution</dd></div>
+              </dl>
+              <p class="flow-row">ATTACH <i aria-hidden="true">→</i> CAPTURE <i aria-hidden="true">→</i> ANALYZE</p>
+              <p class="built-for">Built for
+                <span class="chip">Skincare tracking</span>
+                <span class="chip">Dermatology clinics &amp; teledermatology</span>
+                <span class="chip">AI skin analysis</span>
+              </p>
+              <div class="product-cta">
+                <a href="#contact" class="btn btn-ghost" data-topic="glowwskin">Ask about GlowwSkin <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+              </div>
             </div>
-            <div class="port no">
-              <span class="pico"><svg><use href="#i-x"/></svg></span>
-              <span class="pname">unregistered host<small>unknown MAC · eth1</small></span>
-              <span class="badge">BLOCKED</span>
-            </div>
-          </div>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- Validation -->
-    <section class="section" id="validation">
+    <!-- How we build -->
+    <section class="section ink ink-grid" id="method" aria-labelledby="method-title">
       <div class="wrap">
         <div class="section-head reveal">
-          <span class="eyebrow">Validation</span>
-          <h2>Proven outside the lab, not just inside it.</h2>
-          <p>Product feasibility was validated end to end, from the first prototype through to real-world use.</p>
+          <span class="idx">03 — How we build</span>
+          <h2 id="method-title">Four stages. No shortcuts.</h2>
+          <p>This is the path we engineer along. A prototype that works once on a desk is the starting line. A
+            product that keeps working where it's used is the finish. Cyber Black Box has run the full course.</p>
         </div>
-        <div class="timeline" id="timeline">
-          <div class="stage reveal">
-            <small>01 · PROTOTYPING</small>
-            <h3>Prototyping</h3>
-            <p>Early builds proved the core idea: a log server that can tell when its records have been touched.</p>
-          </div>
-          <div class="stage reveal d1">
-            <small>02 · INTEGRATION</small>
-            <h3>Integration</h3>
-            <p>The server, the Pi 5 extraction node and the device controls were brought together as one system.</p>
-          </div>
-          <div class="stage reveal d2">
-            <small>03 · TESTING</small>
-            <h3>Testing</h3>
-            <p>Tamper attempts, rogue devices and failure cases were exercised on purpose to find the weak spots.</p>
-          </div>
-          <div class="stage reveal d3">
-            <small>04 · REAL WORLD</small>
-            <h3>Real-world validation</h3>
-            <p>Run under real operating conditions to confirm the product holds up beyond the test bench.</p>
-          </div>
+
+        <ol class="rail" role="list">
+          <li class="node reveal">
+            <span class="node-num" aria-hidden="true">01</span>
+            <span class="node-ring" aria-hidden="true"><svg><use href="#i-ring"/></svg></span>
+            <small>S-01</small>
+            <h3>Prototype</h3>
+            <p>Build working hardware and software early, so the hard questions come up while they're still cheap to answer.</p>
+            <p class="proof">Cyber Black Box ▸ Prototyped.</p>
+          </li>
+          <li class="node reveal d1">
+            <span class="node-num" aria-hidden="true">02</span>
+            <span class="node-ring" aria-hidden="true"><svg><use href="#i-ring"/></svg></span>
+            <small>S-02</small>
+            <h3>Integrate</h3>
+            <p>Make boards, software and data paths behave as one system, one that blocks the devices it shouldn't trust.</p>
+            <p class="proof">Cyber Black Box ▸ Integrated.</p>
+          </li>
+          <li class="node reveal d2">
+            <span class="node-num" aria-hidden="true">03</span>
+            <span class="node-ring" aria-hidden="true"><svg><use href="#i-ring"/></svg></span>
+            <small>S-03</small>
+            <h3>Test</h3>
+            <p>Exercise the whole system, not just its parts, until its behavior is predictable.</p>
+            <p class="proof">Cyber Black Box ▸ Tested.</p>
+          </li>
+          <li class="node done reveal d3">
+            <span class="node-num" aria-hidden="true">04</span>
+            <span class="node-ring" aria-hidden="true"><svg><use href="#i-check"/></svg></span>
+            <small>S-04</small>
+            <h3>Validate</h3>
+            <p>Take it out of the lab and confirm it holds up in the conditions it was built for.</p>
+            <p class="proof">Cyber Black Box ▸ Feasibility validated in the real world.</p>
+          </li>
+        </ol>
+
+        <div class="case-row reveal">
+          <span>CASE: <b>CYBER BLACK BOX</b></span>
+          <span class="ticks" aria-hidden="true">✓ ✓ ✓ ✓</span><span class="sr-only">All four stages complete</span>
+          <b>FEASIBILITY VALIDATED</b>
+          <a class="text-link" href="cyber-black-box.html#validation">Follow the full validation story <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
         </div>
-        <div class="verdict reveal">
-          <span class="ico"><svg><use href="#i-check"/></svg></span>
-          <p><b>Feasibility validated.</b> Prototyping, integration, testing and real-world validation confirmed the Cyber Black Box works as a product, not just a proof of concept.</p>
-          <a href="#how" class="btn btn-ghost">Review the pipeline <svg><use href="#i-arrow"/></svg></a>
+      </div>
+    </section>
+
+    <!-- Capabilities -->
+    <section class="section grid-bg" id="capabilities" aria-labelledby="cap-title">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="idx">04 — Capabilities</span>
+          <h2 id="cap-title">Capabilities, each traced to a product.</h2>
+          <p>Each capability below maps to a Voltroen product. Each row shows which one.</p>
         </div>
+
+        <table class="matrix reveal">
+          <caption class="sr-only">Voltroen capabilities and the products that use them</caption>
+          <thead>
+            <tr>
+              <th scope="col">Capability</th>
+              <th scope="col" class="c">Cyber Black Box</th>
+              <th scope="col" class="c">GlowwSkin</th>
+              <th scope="col">Where</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">
+                <span class="cap-id">C-01</span>
+                <span class="cap-title">Embedded &amp; edge hardware</span>
+                <span class="cap-desc">A Raspberry Pi 5 configured as a dedicated log-extraction device that blocks unauthorized devices.</span>
+                <span class="proven" aria-hidden="true"><span class="chip">Used in: Cyber Black Box</span></span>
+              </th>
+              <td class="c"><span class="pip on" role="img" aria-label="Used in Cyber Black Box"></span></td>
+              <td class="c"><span class="pip" role="img" aria-label="Not used in this product"></span></td>
+              <td class="evidence">Raspberry Pi 5 extraction node</td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <span class="cap-id">C-02</span>
+                <span class="cap-title">Security &amp; data integrity</span>
+                <span class="cap-desc">Tamper detection, controlled device access and secured pathways for records that must stay intact.</span>
+                <span class="proven" aria-hidden="true"><span class="chip">Used in: Cyber Black Box</span></span>
+              </th>
+              <td class="c"><span class="pip on" role="img" aria-label="Used in Cyber Black Box"></span></td>
+              <td class="c"><span class="pip" role="img" aria-label="Not used in this product"></span></td>
+              <td class="evidence">Tamper detection, 2500+ logs secured</td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <span class="cap-id">C-03</span>
+                <span class="cap-title">Computational imaging &amp; optics</span>
+                <span class="cap-desc">A precision-aligned macro optic, controlled multispectral lighting and a RAW capture pipeline, built around a phone camera.</span>
+                <span class="proven" aria-hidden="true"><span class="chip">Used in: GlowwSkin</span></span>
+              </th>
+              <td class="c"><span class="pip" role="img" aria-label="Not used in this product"></span></td>
+              <td class="c"><span class="pip on" role="img" aria-label="Used in GlowwSkin"></span></td>
+              <td class="evidence">4 imaging modes</td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <span class="cap-id">C-04</span>
+                <span class="cap-title">Applied AI analysis</span>
+                <span class="cap-desc">Analysis that turns captured images into readings of texture, pigmentation, redness and pore distribution.</span>
+                <span class="proven" aria-hidden="true"><span class="chip">Used in: GlowwSkin</span></span>
+              </th>
+              <td class="c"><span class="pip" role="img" aria-label="Not used in this product"></span></td>
+              <td class="c"><span class="pip on" role="img" aria-label="Used in GlowwSkin"></span></td>
+              <td class="evidence">AI skin analysis</td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <span class="cap-id">C-05</span>
+                <span class="cap-title">End-to-end product engineering</span>
+                <span class="cap-desc">One path from first prototype through integration, testing and real-world validation.</span>
+                <span class="proven" aria-hidden="true"><span class="chip">Used in: Cyber Black Box</span></span>
+              </th>
+              <td class="c"><span class="pip on" role="img" aria-label="Used in Cyber Black Box"></span></td>
+              <td class="c"><span class="pip" role="img" aria-label="Not used in this product"></span></td>
+              <td class="evidence">All 4 stages completed</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
     <!-- Recognition -->
-    <section class="section" id="recognition" style="padding-top: 24px;">
+    <section class="section white" id="recognition" aria-labelledby="recog-title">
       <div class="wrap recog">
         <div class="reveal">
-          <span class="eyebrow">Recognition</span>
-          <h2>Recognized by the CEO's Office.</h2>
-          <p>The Cyber Black Box work earned a <strong>Letter of Recommendation from the CEO's Office</strong>,
-            an early signal of outstanding performance on a product built to be trusted.</p>
-          <span class="pill"><svg width="16" height="16" style="color: var(--blue)"><use href="#i-award"/></svg><b>Letter of Recommendation</b> Office of the CEO</span>
+          <span class="idx">05 — Recognition</span>
+          <h2 id="recog-title">Recognized by the CEO's Office.</h2>
+          <p>Our work on Cyber Black Box earned a <strong>Letter of Recommendation from the CEO's Office</strong> for
+            outstanding performance. We treat it as a standard to keep, not a line to rest on.</p>
+          <a class="text-link" href="cyber-black-box.html#recognition">Read the Cyber Black Box story <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
         </div>
-        <div class="letter-stage reveal d1" aria-hidden="true">
-          <div class="letter">
-            <div class="letter-head">
-              <img src="assets/logo.png" alt="" width="1184" height="184" />
-              <span>Office of the CEO</span>
-            </div>
-            <h3>Letter of Recommendation</h3>
-            <div class="from">For outstanding performance · Cyber Black Box</div>
-            <div class="bars"><i></i><i></i><i></i><i></i></div>
-            <div class="letter-foot">
-              <div class="sign">
-                <svg viewBox="0 0 150 46" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M4 34c8-2 14-18 18-26 2-4 4 0 2 6-3 10-6 22-3 22 4 0 10-16 14-16 3 0 0 12 4 12 5 0 9-10 13-10 3 0 1 8 5 8 6 0 10-8 16-8 4 0 3 6 8 6 8 0 14-6 22-8 6-2 12-1 18 0"/>
-                </svg>
-                <small>Office of the CEO, Voltroen</small>
-              </div>
-              <div class="wax-seal"><svg><use href="#i-power"/></svg></div>
-            </div>
+        <div class="paper-stage reveal d1" aria-hidden="true">
+          <div class="paper">
+            <span class="sim-tag">Illustration</span>
+            <p class="paper-title">LETTER OF RECOMMENDATION</p>
+            <dl>
+              <div><dt>ISSUED BY</dt><dd>CEO's Office</dd></div>
+              <div><dt>FOR</dt><dd>Cyber Black Box</dd></div>
+              <div><dt>RECOGNIZING</dt><dd>Outstanding performance</dd></div>
+            </dl>
+            <div class="wax-seal"><svg><use href="#i-award"/></svg></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CTA -->
-    <section class="section" style="padding-top: 24px;">
-      <div class="wrap">
-        <div class="cta reveal">
-          <span class="eyebrow">Cyber Black Box</span>
-          <h2 style="margin-top: 16px;">When something goes wrong, the black box remembers.</h2>
-          <p>Exactly as it happened, sealed, extracted safely and out of reach of anyone who shouldn't touch it.</p>
-          <div class="hero-cta">
-            <a href="#platform" class="btn btn-primary">Explore the platform <svg><use href="#i-arrow"/></svg></a>
-            <a href="#top" class="btn btn-ghost">Back to top</a>
+    <!-- Contact -->
+    <section class="section ink ink-grid" id="contact" aria-labelledby="contact-title">
+      <div class="wrap contact-grid">
+        <div class="reveal">
+          <span class="idx">06 — Work with us</span>
+          <h2 id="contact-title">Build with Voltroen.</h2>
+          <p>Tell us what you're working on and where it has to hold up. Pick the line that fits you, or just write.</p>
+          <div class="audiences">
+            <button type="button" class="audience" data-topic="partnership" aria-pressed="false" aria-labelledby="aud-partnership" aria-describedby="aud-partnership-d">
+              <b id="aud-partnership">Partners <svg aria-hidden="true"><use href="#i-arrow"/></svg></b>
+              <span id="aud-partnership-d">Have a problem where hardware, software and trustworthy data meet? Tell us about it. We'll say plainly whether it fits how we build.</span>
+            </button>
+            <button type="button" class="audience" data-topic="investment" aria-pressed="false" aria-labelledby="aud-investment" aria-describedby="aud-investment-d">
+              <b id="aud-investment">Investors <svg aria-hidden="true"><use href="#i-arrow"/></svg></b>
+              <span id="aud-investment-d">Ask about the portfolio and the method behind it.</span>
+            </button>
+            <button type="button" class="audience" data-topic="join" aria-pressed="false" aria-labelledby="aud-join" aria-describedby="aud-join-d">
+              <b id="aud-join">Engineers <svg aria-hidden="true"><use href="#i-arrow"/></svg></b>
+              <span id="aud-join-d">Do you build embedded systems, security tooling, optics or imaging pipelines? Show us something you've made.</span>
+            </button>
           </div>
         </div>
+
+        <form class="form-card reveal d1" id="contact-form" novalidate>
+          <div class="form-row">
+            <div class="field">
+              <label for="cf-name">Your name</label>
+              <input id="cf-name" name="name" type="text" autocomplete="name" required aria-describedby="cf-name-error" />
+              <span class="field-error" id="cf-name-error"></span>
+            </div>
+            <div class="field">
+              <label for="cf-org">Organization <em>(optional)</em></label>
+              <input id="cf-org" name="org" type="text" autocomplete="organization" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="cf-topic">What's this about?</label>
+            <select id="cf-topic" name="topic">
+              <option value="partnership">Partnership</option>
+              <option value="investment">Investment</option>
+              <option value="join">Joining Voltroen</option>
+              <option value="cyber-black-box">Cyber Black Box</option>
+              <option value="glowwskin">GlowwSkin</option>
+              <option value="other">Something else</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="cf-message">Message</label>
+            <textarea id="cf-message" name="message" rows="5" required placeholder="What are you building, and where does it need to work?" aria-describedby="cf-message-error"></textarea>
+            <span class="field-error" id="cf-message-error"></span>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary"><svg aria-hidden="true"><use href="#i-power"/></svg><span id="submit-label">Copy message</span></button>
+            <p class="helper" id="form-helper">Nothing is stored by this site.</p>
+          </div>
+          <noscript><p class="inbox-note">This form needs JavaScript to prepare your message.</p></noscript>
+          <p class="inbox-note" id="inbox-note">Our inbox is being set up. You can copy your message now and send it once our address is listed here.</p>
+          <p class="status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
+  <footer class="site-footer v2">
     <div class="wrap">
-      <div class="foot">
+      <div class="foot-grid">
         <div>
           <img src="assets/logo.png" alt="Voltroen" width="1184" height="184" />
-          <p>Tamper-evident logging and secure log extraction for systems that can't afford to lose a record.</p>
+          <p>Hardware and software, built to leave the lab.</p>
+          <p class="mono-line">SECURITY · COMPUTATIONAL IMAGING</p>
         </div>
-        <nav aria-label="Footer">
-          <a href="#platform">Platform</a>
-          <a href="#how">How it works</a>
-          <a href="#validation">Validation</a>
-          <a href="#recognition">Recognition</a>
-        </nav>
+        <div class="foot-col">
+          <h2 class="foot-title">Products</h2>
+          <ul>
+            <li><a href="cyber-black-box.html">Cyber Black Box</a></li>
+            <li><a href="#glowwskin">GlowwSkin</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h2 class="foot-title">Company</h2>
+          <ul>
+            <li><a href="#company">The company</a></li>
+            <li><a href="#method">How we build</a></li>
+            <li><a href="#capabilities">Capabilities</a></li>
+            <li><a href="#recognition">Recognition</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h2 class="foot-title">Contact</h2>
+          <ul>
+            <li><a href="#contact">Send us a message</a></li>
+            <li hidden><a id="footer-email" href="#contact"></a></li>
+          </ul>
+        </div>
       </div>
       <div class="legal">
         <span>© <span id="year">2026</span> Voltroen. All rights reserved.</span>
-        <span>Cyber Black Box</span>
+        <a href="#top">Back to top ↑</a>
       </div>
     </div>
   </footer>
 
-  <script>
-    (function () {
-      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      document.getElementById('year').textContent = new Date().getFullYear();
-
-      /* Header shadow + mobile menu */
-      var header = document.querySelector('.site-header');
-      var menuBtn = document.querySelector('.menu-btn');
-      function onScroll() { header.classList.toggle('scrolled', window.scrollY > 8); }
-      window.addEventListener('scroll', onScroll, { passive: true });
-      onScroll();
-      function setMenu(open) {
-        header.classList.toggle('menu-open', open);
-        menuBtn.setAttribute('aria-expanded', String(open));
-        menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-      }
-      menuBtn.addEventListener('click', function () { setMenu(!header.classList.contains('menu-open')); });
-      document.querySelectorAll('.nav-links a').forEach(function (a) {
-        a.addEventListener('click', function () { setMenu(false); });
-      });
-
-      /* Reveal on scroll */
-      var revealables = document.querySelectorAll('.reveal, .timeline');
-      if ('IntersectionObserver' in window && !reduceMotion) {
-        var io = new IntersectionObserver(function (entries) {
-          entries.forEach(function (e) {
-            if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-          });
-        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-        revealables.forEach(function (el) { io.observe(el); });
-      } else {
-        revealables.forEach(function (el) { el.classList.add('in'); });
-      }
-
-      /* Simulated log stream */
-      var log = document.getElementById('log');
-      var badge = document.getElementById('integrity');
-      var badgeText = document.getElementById('integrity-text');
-      var cLogs = document.getElementById('c-logs');
-      var cTamper = document.getElementById('c-tamper');
-      var cBlocked = document.getElementById('c-blocked');
-      var MAX_LINES = 9;
-      var counts = { logs: 2486, tamper: 0, blocked: 0 };
-      var batch = 311;
-      var clock = new Date();
-      clock.setHours(14, 2, 11, 204);
-
-      var SEALS = [
-        ['auth.svc', 'login accepted · uid 1042'],
-        ['net.gw', 'route table updated'],
-        ['plc.bus', 'telemetry frame stored'],
-        ['sys.kern', 'watchdog heartbeat'],
-        ['cfg.mgr', 'config snapshot written'],
-        ['door.ctl', 'access event recorded'],
-        ['pwr.mon', 'voltage sample logged'],
-        ['ssh.d', 'session closed · admin']
-      ];
-      var BLOCKS = [
-        ['usb.guard', 'unknown device 1a86:7523 denied'],
-        ['usb.guard', 'mass-storage device rejected'],
-        ['eth.guard', 'unregistered MAC refused']
-      ];
-      var ALERTS = [
-        function () { return ['integrity', 'record #' + (counts.logs - 213) + ' altered → flagged']; },
-        function () { return ['integrity', 'delete attempt on #' + (counts.logs - 618) + ' → flagged']; },
-        function () { return ['integrity', 'out-of-order write rejected']; }
-      ];
-
-      function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
-      function fmt(n) { return n.toLocaleString('en-US'); }
-      function pad(n, w) { return String(n).padStart(w || 2, '0'); }
-      function stamp() {
-        clock = new Date(clock.getTime() + 180 + Math.floor(Math.random() * 900));
-        return pad(clock.getHours()) + ':' + pad(clock.getMinutes()) + ':' + pad(clock.getSeconds()) + '.' + pad(clock.getMilliseconds(), 3);
-      }
-
-      var lastKind = '';
-      function nextEvent() {
-        var r = Math.random();
-        var kind = r < 0.58 ? 'seal' : r < 0.74 ? 'extr' : r < 0.9 ? 'block' : 'alert';
-        if (kind === lastKind && kind !== 'seal') kind = 'seal';
-        lastKind = kind;
-        if (kind === 'seal') { counts.logs++; var s = pick(SEALS); return { kind: kind, tag: 'SEAL', src: s[0], msg: s[1], st: '✓' }; }
-        if (kind === 'extr') { batch++; return { kind: kind, tag: 'EXTR', src: 'pi5.extract', msg: 'batch #' + batch + ' pulled · 64 records', st: '✓' }; }
-        if (kind === 'block') { counts.blocked++; var b = pick(BLOCKS); return { kind: kind, tag: 'BLOCK', src: b[0], msg: b[1], st: '⨯' }; }
-        counts.tamper++; var a = pick(ALERTS)(); return { kind: kind, tag: 'ALERT', src: a[0], msg: a[1], st: '!' };
-      }
-
-      function render(ev, animate) {
-        var row = document.createElement('div');
-        row.className = 'line ' + ev.kind + (animate ? ' new' : '');
-        [['t', stamp()], ['tag', ev.tag], ['src', ev.src], ['msg', ev.msg], ['st', ev.st]].forEach(function (c) {
-          var span = document.createElement('span');
-          span.className = c[0];
-          span.textContent = c[1];
-          row.appendChild(span);
-        });
-        log.appendChild(row);
-        while (log.children.length > MAX_LINES) log.removeChild(log.firstChild);
-        cLogs.textContent = fmt(counts.logs);
-        cTamper.textContent = counts.tamper;
-        cBlocked.textContent = counts.blocked;
-        if (ev.kind === 'alert' && animate) {
-          badge.classList.add('alert');
-          badgeText.textContent = 'TAMPER FLAGGED';
-          clearTimeout(render.t);
-          render.t = setTimeout(function () { badge.classList.remove('alert'); badgeText.textContent = 'INTEGRITY OK'; }, 2200);
-        }
-      }
-
-      var seed = [
-        { kind: 'seal', tag: 'SEAL', src: 'auth.svc', msg: 'login accepted · uid 1042', st: '✓' },
-        { kind: 'seal', tag: 'SEAL', src: 'net.gw', msg: 'route table updated', st: '✓' },
-        { kind: 'block', tag: 'BLOCK', src: 'usb.guard', msg: 'unknown device 1a86:7523 denied', st: '⨯' },
-        { kind: 'seal', tag: 'SEAL', src: 'plc.bus', msg: 'telemetry frame stored', st: '✓' },
-        { kind: 'extr', tag: 'EXTR', src: 'pi5.extract', msg: 'batch #311 pulled · 64 records', st: '✓' },
-        { kind: 'seal', tag: 'SEAL', src: 'cfg.mgr', msg: 'config snapshot written', st: '✓' },
-        { kind: 'alert', tag: 'ALERT', src: 'integrity', msg: 'record #2291 altered → flagged', st: '!' },
-        { kind: 'seal', tag: 'SEAL', src: 'door.ctl', msg: 'access event recorded', st: '✓' },
-        { kind: 'seal', tag: 'SEAL', src: 'sys.kern', msg: 'watchdog heartbeat', st: '✓' }
-      ];
-      counts.logs += 6; counts.blocked = 1; counts.tamper = 1;
-      seed.forEach(function (ev) { render(ev, false); });
-      if (reduceMotion) return;
-
-      var timer = null;
-      function start() { if (!timer) timer = setInterval(function () { render(nextEvent(), true); }, 1500); }
-      function stop() { clearInterval(timer); timer = null; }
-      var consoleEl = document.getElementById('console');
-      var visible = true;
-      if ('IntersectionObserver' in window) {
-        new IntersectionObserver(function (entries) {
-          visible = entries[0].isIntersecting;
-          visible && !document.hidden ? start() : stop();
-        }).observe(consoleEl);
-      } else {
-        start();
-      }
-      document.addEventListener('visibilitychange', function () {
-        document.hidden || !visible ? stop() : start();
-      });
-    })();
-  </script>
+  <script src="assets/js/site.js"></script>
 </body>
 </html>
