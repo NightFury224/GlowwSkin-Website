@@ -235,7 +235,7 @@
   /* Contact: topic buttons, URL prefill, compose or copy */
   (function () {
     // Set this to Voltroen's real inbox once it exists. Leave it empty until then; never use a placeholder address.
-    var CONTACT_EMAIL = '';
+    var CONTACT_EMAIL = 'ganesh@voltroen.in';
 
     var footerEmail = document.getElementById('footer-email');
     if (footerEmail && CONTACT_EMAIL) {

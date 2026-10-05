@@ -800,6 +800,9 @@ button.btn { border: 0; cursor: pointer; font-family: inherit; }
 .form-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 6px; }
 .form-actions .btn svg { width: 18px; height: 18px; }
 .helper { flex: 1; min-width: 200px; font-size: .84rem; color: #9aa4bf; }
+.direct-contact { margin-top: 20px; font-family: var(--mono); font-size: .88rem; line-height: 1.9; color: #9aa4bf; }
+.direct-contact a { color: #fff; border-bottom: 1px solid rgba(255, 255, 255, .3); }
+.direct-contact a:hover { border-bottom-color: #fff; }
 .inbox-note { margin-top: 18px; padding: 12px 14px; border-radius: 10px; border: 1px dashed rgba(255, 255, 255, .2); font-size: .86rem; color: #c4cbdd; }
 .status { margin-top: 14px; font-family: var(--mono); font-size: .78rem; color: #4ade80; min-height: 1.2em; }
 .status.warn { color: var(--amber); }
