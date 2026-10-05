@@ -1003,3 +1003,10 @@ html:not(.js) #contact-form .form-actions { display: none; }
   .site-header, .subbar { position: static; }
   .motion-toggle, .skip-link { display: none; }
 }
+.glance-grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.products.single { grid-template-columns: minmax(0, 1fr); max-width: 760px; }
+@media (max-width: 860px) {
+  .glance-grid.three { grid-template-columns: minmax(0, 1fr); }
+  .glance-grid.three .glance-cell { padding: 24px 0; border-right: 0; border-bottom: 1px solid var(--line); }
+  .glance-grid.three .glance-cell:last-child { border-bottom: 0; }
+}
