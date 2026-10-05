@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en" class="has-subbar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cyber Black Box | Voltroen</title>
+  <meta name="description" content="Cyber Black Box by Voltroen: a log server with tamper detection, secured pathways protecting 2500+ logs, and Raspberry Pi 5 extraction that blocks unauthorized devices." />
+  <meta name="theme-color" content="#0b1020" />
+  <meta property="og:title" content="Cyber Black Box | Voltroen" />
+  <meta property="og:description" content="A log server with tamper detection, secured pathways protecting 2500+ logs, and Raspberry Pi 5 extraction that blocks unauthorized devices." />
+  <meta property="og:image" content="https://voltroen.in/assets/logo.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://voltroen.in/cyber-black-box.html" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.__siteReady)document.documentElement.classList.remove('js');},4000);</script>
+  <link rel="stylesheet" href="assets/css/site.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Reusable icons -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.6-3.3 8.4-8 9-4.7-.6-8-4.4-8-9V6l8-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></symbol>
+      <symbol id="i-route" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="5" r="2.5"/><path d="M8.5 19H16a3.5 3.5 0 0 0 0-7H8a3.5 3.5 0 0 1 0-7h7.5"/></symbol>
+      <symbol id="i-chip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><circle cx="12" cy="16" r="1.3" fill="currentColor"/></symbol>
+      <symbol id="i-capture" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></symbol>
+      <symbol id="i-seal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 13h6"/><circle cx="17" cy="16" r="2"/></symbol>
+      <symbol id="i-extract" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></symbol>
+      <symbol id="i-verify" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/><path d="M8 11l2 2 4-4"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5 5.5-6"/></symbol>
+      <symbol id="i-usb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v14"/><path d="M9 5l3-3 3 3"/><path d="M12 16l-4-3V9M12 13l4-2V8"/><circle cx="12" cy="19" r="2.5"/></symbol>
+      <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+      <symbol id="i-power" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M7.5 6.8a7 7 0 1 0 9 0"/><path d="M12 3v8"/></symbol>
+      <symbol id="i-award" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8.5 14L7 22l5-3 5 3-1.5-8"/></symbol>
+    </defs>
+  </svg>
+
+  <header class="site-header">
+    <div class="wrap nav">
+      <a href="index.html" class="brand" aria-label="Voltroen home">
+        <img src="assets/logo.png" alt="Voltroen" width="1184" height="184" />
+      </a>
+      <button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links"><span></span></button>
+      <nav class="nav-links" id="nav-links" aria-label="Primary">
+        <a href="index.html#company">Company</a>
+        <a href="index.html#products" class="is-section">Products</a>
+        <a href="index.html#method">How we build</a>
+        <a href="index.html#capabilities">Capabilities</a>
+        <a href="index.html#recognition">Recognition</a>
+        <a href="index.html?topic=cyber-black-box#contact" class="btn btn-primary">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="subbar">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href="index.html">Voltroen</a><i aria-hidden="true">/</i><a href="index.html#products">Products</a><i aria-hidden="true">/</i><b aria-current="page">Cyber Black Box</b>
+      </nav>
+      <nav class="subnav" aria-label="On this page">
+        <a href="#platform">Platform</a>
+        <a href="#how">How it works</a>
+        <a href="#validation">Validation</a>
+        <a href="#recognition">Recognition</a>
+      </nav>
+    </div>
+  </div>
+
+  <main id="main" tabindex="-1">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="pill reveal"><span class="dot"></span><b>Cyber Black Box</b> Log server with tamper detection</span>
+          <h1 class="reveal d1">Logs guarded against tampering.<br /><span class="accent">Unauthorized devices</span> blocked.</h1>
+          <p class="hero-lede reveal d2">
+            Voltroen's Cyber Black Box is a log server with tamper detection and pathways securing 2500+ logs.
+            A Raspberry Pi 5, configured for secure log extraction, blocks unauthorized devices.
+          </p>
+          <div class="hero-cta reveal d3">
+            <a href="#platform" class="btn btn-primary">Explore the platform <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <a href="#how" class="btn btn-ghost">See how it works</a>
+          </div>
+          <div class="hero-stats reveal d3">
+            <div><strong>2500+</strong><span>Logs secured</span></div>
+            <div><strong>Pi 5</strong><span>Secure extraction</span></div>
+            <div><strong>4-stage</strong><span>Feasibility validation</span></div>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal d2">
+          <div class="console" id="console" aria-label="Simulated Cyber Black Box log stream (illustrative)" role="img">
+            <div class="console-bar">
+              <div class="lights"><i></i><i></i><i></i></div>
+              <div class="console-title"><span class="sim-tag">Simulated feed</span><span class="path">cbb-server-01 · /var/log/blackbox</span></div>
+              <div class="integrity" id="integrity"><span class="dot"></span><span id="integrity-text">INTEGRITY OK</span></div>
+            </div>
+            <div class="log" id="log" aria-hidden="true"></div>
+            <div class="console-foot">
+              <div><small>Logs secured</small><b id="c-logs">2520</b></div>
+              <div><small>Tamper flags</small><b id="c-tamper">0</b></div>
+              <div><small>Devices blocked</small><b id="c-blocked">0</b></div>
+              <div><small>Pi 5 extractor</small><b class="online"><span class="dot"></span>online</b></div>
+            </div>
+            <div class="console-note">Illustrative values</div>
+          </div>
+          <button type="button" class="motion-toggle" aria-pressed="false"><span class="mt-icon" aria-hidden="true"></span><span class="mt-label">Pause animation</span></button>
+          <div class="float-chip chip-b" aria-hidden="true">
+            <span class="ico"><svg><use href="#i-shield"/></svg></span>
+            <span>Tamper detected<small>Simulated alert</small></span>
+          </div>
+          <div class="float-chip chip-a" aria-hidden="true">
+            <span class="ico"><svg><use href="#i-lock"/></svg></span>
+            <span>Unauthorized devices blocked<small>Simulated event</small></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Platform -->
+    <section class="section" id="platform">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">The platform</span>
+          <h2>A log server that knows when it's been touched.</h2>
+          <p>Cyber Black Box records logs with tamper detection, moves them through secured pathways, and blocks
+            unauthorized devices during extraction.</p>
+        </div>
+        <div class="features">
+          <article class="card reveal">
+            <div class="ico"><svg aria-hidden="true"><use href="#i-shield"/></svg></div>
+            <h3>Tamper detection</h3>
+            <p>The Cyber Black Box server is built with tamper detection.</p>
+            <span class="kpi">tamper detection</span>
+          </article>
+          <article class="card reveal d1">
+            <div class="ico"><svg aria-hidden="true"><use href="#i-route"/></svg></div>
+            <h3>Secured log pathways</h3>
+            <p>Logs travel through secured pathways. Together they have secured 2500+ logs.</p>
+            <span class="kpi">2500+ logs secured</span>
+          </article>
+          <article class="card reveal d2">
+            <div class="ico"><svg aria-hidden="true"><use href="#i-chip"/></svg></div>
+            <h3>Raspberry Pi 5 extraction</h3>
+            <p>A Raspberry Pi 5, configured for the job, handles secure log extraction from the black box.</p>
+            <span class="kpi">Raspberry Pi 5</span>
+          </article>
+          <article class="card reveal d3">
+            <div class="ico"><svg aria-hidden="true"><use href="#i-lock"/></svg></div>
+            <h3>Device lockdown</h3>
+            <p>Unauthorized devices are blocked during log extraction.</p>
+            <span class="kpi">unauthorized → blocked</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="section dark" id="how">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">How it works</span>
+          <h2>From log to extraction in four steps.</h2>
+          <p>Logs are recorded, watched by tamper detection, moved through secured pathways and extracted by a Raspberry Pi 5 that blocks unauthorized devices.</p>
+        </div>
+
+        <div class="flow">
+          <div class="step reveal">
+            <div class="step-num"><svg aria-hidden="true"><use href="#i-capture"/></svg></div>
+            <small>STEP 01</small>
+            <h3>Capture</h3>
+            <p>Logs from connected systems are recorded by the Cyber Black Box server.</p>
+          </div>
+          <div class="step reveal d1">
+            <div class="step-num"><svg aria-hidden="true"><use href="#i-shield"/></svg></div>
+            <small>STEP 02</small>
+            <h3>Protect</h3>
+            <p>Tamper detection watches the stored logs.</p>
+          </div>
+          <div class="step reveal d2">
+            <div class="step-num"><svg aria-hidden="true"><use href="#i-route"/></svg></div>
+            <small>STEP 03</small>
+            <h3>Move</h3>
+            <p>Logs travel through secured pathways.</p>
+          </div>
+          <div class="step reveal d3">
+            <div class="step-num"><svg aria-hidden="true"><use href="#i-extract"/></svg></div>
+            <small>STEP 04</small>
+            <h3>Extract</h3>
+            <p>A Raspberry Pi 5 extracts logs securely and blocks unauthorized devices.</p>
+          </div>
+        </div>
+
+        <div class="pi-panel reveal">
+          <div>
+            <span class="eyebrow">Edge extraction node</span>
+            <h3>Raspberry Pi 5, configured to say no.</h3>
+            <p>Log extraction runs on a Raspberry Pi 5 configured to extract logs securely while blocking
+              unauthorized devices.</p>
+            <ul class="checks">
+              <li><svg aria-hidden="true"><use href="#i-check"/></svg>Secure log extraction</li>
+              <li><svg aria-hidden="true"><use href="#i-check"/></svg>Unauthorized devices blocked</li>
+              <li><svg aria-hidden="true"><use href="#i-check"/></svg>Part of a system whose pathways have secured 2500+ logs</li>
+            </ul>
+          </div>
+          <div class="ports" role="group" aria-label="Illustrative device access decisions">
+            <div class="ports-label">ILLUSTRATIVE</div>
+            <div class="port ok">
+              <span class="pico"><svg aria-hidden="true"><use href="#i-chip"/></svg></span>
+              <span class="pname">pi5-extractor<small>authorized node · eth0</small></span>
+              <span class="badge">ALLOWED</span>
+            </div>
+            <div class="port no">
+              <span class="pico"><svg aria-hidden="true"><use href="#i-usb"/></svg></span>
+              <span class="pname">unknown device<small>not authorized · port 2</small></span>
+              <span class="badge">BLOCKED</span>
+            </div>
+            <div class="port no">
+              <span class="pico"><svg aria-hidden="true"><use href="#i-usb"/></svg></span>
+              <span class="pname">unrecognized adapter<small>not authorized · port 3</small></span>
+              <span class="badge">BLOCKED</span>
+            </div>
+            <div class="port no">
+              <span class="pico"><svg aria-hidden="true"><use href="#i-x"/></svg></span>
+              <span class="pname">unregistered host<small>not authorized · eth1</small></span>
+              <span class="badge">BLOCKED</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Validation -->
+    <section class="section" id="validation">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">Validation</span>
+          <h2>Validated outside the lab, not just inside it.</h2>
+          <p>Product feasibility was validated end to end, from prototyping through to real-world validation.</p>
+        </div>
+        <div class="timeline" id="timeline">
+          <div class="stage reveal">
+            <small>STAGE 01</small>
+            <h3>Prototyping</h3>
+            <p>Cyber Black Box began as a working prototype.</p>
+          </div>
+          <div class="stage reveal d1">
+            <small>STAGE 02</small>
+            <h3>Integration</h3>
+            <p>Its parts were integrated into one system.</p>
+          </div>
+          <div class="stage reveal d2">
+            <small>STAGE 03</small>
+            <h3>Testing</h3>
+            <p>The integrated system was tested.</p>
+          </div>
+          <div class="stage reveal d3">
+            <small>STAGE 04</small>
+            <h3>Real-world validation</h3>
+            <p>Feasibility was validated in the real world, beyond the test bench.</p>
+          </div>
+        </div>
+        <div class="verdict reveal">
+          <span class="ico"><svg aria-hidden="true"><use href="#i-check"/></svg></span>
+          <p><b>Feasibility validated.</b> Cyber Black Box's product feasibility was validated through prototyping, integration, testing and real-world validation.</p>
+          <a href="#how" class="btn btn-ghost">Review the pipeline <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recognition -->
+    <section class="section" id="recognition" style="padding-top: 24px;">
+      <div class="wrap recog">
+        <div class="reveal">
+          <span class="eyebrow">Recognition</span>
+          <h2>Recognized by the CEO's Office.</h2>
+          <p>Our work on Cyber Black Box earned a <strong>Letter of Recommendation from the CEO's Office</strong>
+            for outstanding performance.</p>
+          <span class="pill"><svg width="16" height="16" style="color: var(--blue)" aria-hidden="true"><use href="#i-award"/></svg><b>Letter of Recommendation</b> CEO's Office</span>
+        </div>
+        <div class="letter-stage reveal d1" aria-hidden="true">
+          <div class="letter">
+            <div class="letter-head">
+              <span class="sim-tag">Illustration</span>
+              <span>CEO's Office</span>
+            </div>
+            <h3>Letter of Recommendation</h3>
+            <div class="from">For outstanding performance · Cyber Black Box</div>
+            <div class="bars"><i></i><i></i><i></i><i></i></div>
+            <div class="letter-foot">
+              <div class="sign"><small>Issued by the CEO's Office</small></div>
+              <div class="wax-seal"><svg aria-hidden="true"><use href="#i-award"/></svg></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section" style="padding-top: 24px;">
+      <div class="wrap">
+        <div class="cta reveal">
+          <span class="eyebrow">Cyber Black Box</span>
+          <h2 style="margin-top: 16px;">When something goes wrong, the black box remembers.</h2>
+          <p>Cyber Black Box watches its logs with tamper detection, moves them through secured pathways, and extracts them with a Raspberry Pi 5 that blocks unauthorized devices.</p>
+          <div class="hero-cta">
+            <a href="index.html?topic=cyber-black-box#contact" class="btn btn-primary">Talk to us about Cyber Black Box <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <a href="index.html" class="btn btn-ghost">Back to Voltroen</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer v2">
+    <div class="wrap">
+      <div class="foot-grid">
+        <div>
+          <img src="assets/logo.png" alt="Voltroen" width="1184" height="184" />
+          <p>Hardware and software, built to leave the lab.</p>
+          <p class="mono-line">SECURITY · COMPUTATIONAL IMAGING</p>
+        </div>
+        <div class="foot-col">
+          <h2 class="foot-title">Products</h2>
+          <ul>
+            <li><a href="cyber-black-box.html">Cyber Black Box</a></li>
+            <li><a href="index.html#glowwskin">GlowwSkin</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h2 class="foot-title">Company</h2>
+          <ul>
+            <li><a href="index.html#company">The company</a></li>
+            <li><a href="index.html#method">How we build</a></li>
+            <li><a href="index.html#capabilities">Capabilities</a></li>
+            <li><a href="index.html#recognition">Recognition</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h2 class="foot-title">Contact</h2>
+          <ul>
+            <li><a href="index.html#contact">Send us a message</a></li>
+            <li hidden><a id="footer-email" href="index.html#contact"></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="legal">
+        <span>© <span id="year">2026</span> Voltroen. All rights reserved.</span>
+        <a href="#top">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/site.js"></script>
+</body>
+</html>
