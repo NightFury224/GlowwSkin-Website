@@ -251,16 +251,7 @@
     var orgEl = form.elements.org;
     var msgEl = form.elements.message;
     var status = document.getElementById('form-status');
-    var submitLabel = document.getElementById('submit-label');
     var audiences = document.querySelectorAll('.audience');
-
-    if (!CONTACT_EMAIL) {
-      submitLabel.textContent = 'Copy message';
-      document.getElementById('form-helper').textContent = 'Nothing is stored by this site.';
-    } else {
-      submitLabel.textContent = 'Compose email';
-      document.getElementById('form-helper').textContent = 'This opens your own email app with the message ready to send. Nothing is stored by this site.';
-    }
 
     function syncAudience() {
       audiences.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-topic') === topic.value)); });
@@ -308,35 +299,9 @@
       if (!okName) { nameEl.focus(); return; }
       if (!okMsg) { msgEl.focus(); return; }
 
-      var name = nameEl.value.trim();
-      var org = orgEl.value.trim();
-      var topicLabel = topic.options[topic.selectedIndex].text;
-      var subject = '[Voltroen] ' + topicLabel + ' — ' + (org || name);
-      var body = 'Name: ' + name + '\nOrganization: ' + (org || '—') + '\nTopic: ' + topicLabel + '\n\n' + msgEl.value.trim();
-
-      if (CONTACT_EMAIL) {
-        window.location.href = 'mailto:' + CONTACT_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-        status.textContent = "Your email app should open with the message ready. If it doesn't, write to us at ";
-        var a = document.createElement('a');
-        a.href = 'mailto:' + CONTACT_EMAIL; a.textContent = CONTACT_EMAIL;
-        status.appendChild(a);
-        status.appendChild(document.createTextNode('.'));
-        return;
-      }
-
-      function copyFailed() {
-        status.className = 'status warn';
-        status.textContent = "Couldn't copy automatically. Your message is still in the form.";
-        msgEl.focus(); msgEl.select();
-      }
-      try {
-        if (!navigator.clipboard || !window.isSecureContext) throw new Error('clipboard unavailable');
-        navigator.clipboard.writeText(subject + '\n\n' + body).then(function () {
-          setTimeout(function () { status.textContent = 'Copied. Your message is on your clipboard.'; }, 50);
-        }, copyFailed);
-      } catch (err) {
-        copyFailed();
-      }
+      // Dummy form: accept the input, send nothing, and clear the fields.
+      form.reset();
+      setTopic(topic.options[0].value);
     });
   })();
 })();
