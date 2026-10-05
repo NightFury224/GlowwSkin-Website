@@ -250,7 +250,6 @@
     var nameEl = form.elements.name;
     var orgEl = form.elements.org;
     var msgEl = form.elements.message;
-    var status = document.getElementById('form-status');
     var audiences = document.querySelectorAll('.audience');
 
     function syncAudience() {
@@ -272,8 +271,6 @@
       el.addEventListener('click', function (e) {
         if (!setTopic(el.getAttribute('data-topic'))) return;
         e.preventDefault();
-        status.className = 'status';
-        status.textContent = 'Topic set to ' + topic.options[topic.selectedIndex].text + '.';
         var section = document.getElementById('contact');
         if (!section.contains(el)) section.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
         setTimeout(function () { msgEl.focus({ preventScroll: true }); }, reduceMotion ? 0 : 450);
@@ -292,8 +289,6 @@
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      status.className = 'status';
-      status.textContent = '';
       var okMsg = fieldError(msgEl, msgEl.value.trim() ? '' : 'Please add a message.');
       var okName = fieldError(nameEl, nameEl.value.trim() ? '' : 'Please add your name.');
       if (!okName) { nameEl.focus(); return; }
