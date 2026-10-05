@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cyber Black Box | Voltroen</title>
-  <meta name="description" content="Cyber Black Box by Voltroen: a log server with tamper detection, secured pathways protecting 2500+ logs, and Raspberry Pi 5 extraction that blocks unauthorized devices." />
+  <meta name="description" content="Cyber Black Box by Voltroen: a tamper-evident event recorder that seals every log record, flags any change, and only releases records to approved devices." />
   <meta name="theme-color" content="#0b1020" />
   <meta property="og:title" content="Cyber Black Box | Voltroen" />
-  <meta property="og:description" content="A log server with tamper detection, secured pathways protecting 2500+ logs, and Raspberry Pi 5 extraction that blocks unauthorized devices." />
+  <meta property="og:description" content="Cyber Black Box by Voltroen: a tamper-evident event recorder that seals every log record, flags any change, and only releases records to approved devices." />
   <meta property="og:image" content="https://voltroen.in/assets/logo.png" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://voltroen.in/cyber-black-box.html" />
@@ -37,7 +37,6 @@
       <symbol id="i-usb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v14"/><path d="M9 5l3-3 3 3"/><path d="M12 16l-4-3V9M12 13l4-2V8"/><circle cx="12" cy="19" r="2.5"/></symbol>
       <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></symbol>
       <symbol id="i-power" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M7.5 6.8a7 7 0 1 0 9 0"/><path d="M12 3v8"/></symbol>
-      <symbol id="i-award" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8.5 14L7 22l5-3 5 3-1.5-8"/></symbol>
     </defs>
   </svg>
 
@@ -50,9 +49,9 @@
       <nav class="nav-links" id="nav-links" aria-label="Primary">
         <a href="index.html#company">Company</a>
         <a href="index.html#products" class="is-section">Products</a>
-        <a href="index.html#method">How we build</a>
+        <a href="index.html#method">How we work</a>
         <a href="index.html#capabilities">Capabilities</a>
-        <a href="index.html#recognition">Recognition</a>
+        <a href="index.html#industries">Who we serve</a>
         <a href="index.html?topic=cyber-black-box#contact" class="btn btn-primary">Contact</a>
       </nav>
     </div>
@@ -66,8 +65,7 @@
       <nav class="subnav" aria-label="On this page">
         <a href="#platform">Platform</a>
         <a href="#how">How it works</a>
-        <a href="#validation">Validation</a>
-        <a href="#recognition">Recognition</a>
+        <a href="#use-cases">Use cases</a>
       </nav>
     </div>
   </div>
@@ -77,47 +75,48 @@
     <section class="hero">
       <div class="wrap hero-grid">
         <div>
-          <span class="pill reveal"><span class="dot"></span><b>Cyber Black Box</b> Log server with tamper detection</span>
-          <h1 class="reveal d1">Logs guarded against tampering.<br /><span class="accent">Unauthorized devices</span> blocked.</h1>
+          <span class="pill reveal"><span class="dot"></span><b>Cyber Black Box</b> Tamper-evident event recorder</span>
+          <h1 class="reveal d1">Every event recorded.<br /><span class="accent">Every change</span> exposed.</h1>
           <p class="hero-lede reveal d2">
-            Voltroen's Cyber Black Box is a log server with tamper detection and pathways securing 2500+ logs.
-            A Raspberry Pi 5, configured for secure log extraction, blocks unauthorized devices.
+            Cyber Black Box sits alongside your servers, network and machines and keeps a sealed record of what
+            happens on them. If anyone edits or deletes a record, it shows. If an unapproved device tries to read
+            the logs, it is refused.
           </p>
           <div class="hero-cta reveal d3">
             <a href="#platform" class="btn btn-primary">Explore the platform <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
             <a href="#how" class="btn btn-ghost">See how it works</a>
           </div>
           <div class="hero-stats reveal d3">
-            <div><strong>2500+</strong><span>Logs secured</span></div>
-            <div><strong>Pi 5</strong><span>Secure extraction</span></div>
-            <div><strong>4-stage</strong><span>Feasibility validation</span></div>
+            <div><strong>Sealed</strong><span>Tamper-evident records</span></div>
+            <div><strong>Approved</strong><span>Devices only</span></div>
+            <div><strong>On-site</strong><span>Runs next to your systems</span></div>
           </div>
         </div>
 
         <div class="hero-visual reveal d2">
-          <div class="console" id="console" aria-label="Simulated Cyber Black Box log stream (illustrative)" role="img">
+          <div class="console" id="console" aria-label="Simulated Cyber Black Box event stream (illustrative)" role="img">
             <div class="console-bar">
               <div class="lights"><i></i><i></i><i></i></div>
-              <div class="console-title"><span class="sim-tag">Simulated feed</span><span class="path">cbb-server-01 · /var/log/blackbox</span></div>
+              <div class="console-title"><span class="sim-tag">Simulated feed</span><span class="path">cbb-01 · /var/log/blackbox</span></div>
               <div class="integrity" id="integrity"><span class="dot"></span><span id="integrity-text">INTEGRITY OK</span></div>
             </div>
             <div class="log" id="log" aria-hidden="true"></div>
             <div class="console-foot">
-              <div><small>Logs secured</small><b id="c-logs">2520</b></div>
+              <div><small>Records sealed</small><b id="c-logs">0</b></div>
               <div><small>Tamper flags</small><b id="c-tamper">0</b></div>
-              <div><small>Devices blocked</small><b id="c-blocked">0</b></div>
-              <div><small>Pi 5 extractor</small><b class="online"><span class="dot"></span>online</b></div>
+              <div><small>Devices refused</small><b id="c-blocked">0</b></div>
+              <div><small>Reader</small><b class="online"><span class="dot"></span>online</b></div>
             </div>
             <div class="console-note">Illustrative values</div>
           </div>
           <button type="button" class="motion-toggle" aria-pressed="false"><span class="mt-icon" aria-hidden="true"></span><span class="mt-label">Pause animation</span></button>
           <div class="float-chip chip-b" aria-hidden="true">
             <span class="ico"><svg><use href="#i-shield"/></svg></span>
-            <span>Tamper detected<small>Simulated alert</small></span>
+            <span>Tamper flagged<small>Simulated alert</small></span>
           </div>
           <div class="float-chip chip-a" aria-hidden="true">
             <span class="ico"><svg><use href="#i-lock"/></svg></span>
-            <span>Unauthorized devices blocked<small>Simulated event</small></span>
+            <span>Unknown device refused<small>Simulated event</small></span>
           </div>
         </div>
       </div>
@@ -128,34 +127,34 @@
       <div class="wrap">
         <div class="section-head reveal">
           <span class="eyebrow">The platform</span>
-          <h2>A log server that knows when it's been touched.</h2>
-          <p>Cyber Black Box records logs with tamper detection, moves them through secured pathways, and blocks
-            unauthorized devices during extraction.</p>
+          <h2>A flight recorder for your IT and operations.</h2>
+          <p>After an incident, the first question is always "what happened?" Cyber Black Box makes sure the answer
+            is still there, and that you can trust it.</p>
         </div>
         <div class="features">
           <article class="card reveal">
-            <div class="ico"><svg aria-hidden="true"><use href="#i-shield"/></svg></div>
-            <h3>Tamper detection</h3>
-            <p>The Cyber Black Box server is built with tamper detection.</p>
-            <span class="kpi">tamper detection</span>
+            <div class="ico"><svg aria-hidden="true"><use href="#i-capture"/></svg></div>
+            <h3>Continuous recording</h3>
+            <p>Collects event logs from the servers, network equipment and machines you connect to it.</p>
+            <span class="kpi">always on</span>
           </article>
           <article class="card reveal d1">
-            <div class="ico"><svg aria-hidden="true"><use href="#i-route"/></svg></div>
-            <h3>Secured log pathways</h3>
-            <p>Logs travel through secured pathways. Together they have secured 2500+ logs.</p>
-            <span class="kpi">2500+ logs secured</span>
+            <div class="ico"><svg aria-hidden="true"><use href="#i-seal"/></svg></div>
+            <h3>Sealed records</h3>
+            <p>Each record is sealed as it is written, so a later edit, deletion or gap can't go unnoticed.</p>
+            <span class="kpi">tamper-evident</span>
           </article>
           <article class="card reveal d2">
-            <div class="ico"><svg aria-hidden="true"><use href="#i-chip"/></svg></div>
-            <h3>Raspberry Pi 5 extraction</h3>
-            <p>A Raspberry Pi 5, configured for the job, handles secure log extraction from the black box.</p>
-            <span class="kpi">Raspberry Pi 5</span>
+            <div class="ico"><svg aria-hidden="true"><use href="#i-shield"/></svg></div>
+            <h3>Instant alerts</h3>
+            <p>Signs of tampering are flagged the moment they appear, not weeks later during a review.</p>
+            <span class="kpi">flag → alert</span>
           </article>
           <article class="card reveal d3">
             <div class="ico"><svg aria-hidden="true"><use href="#i-lock"/></svg></div>
-            <h3>Device lockdown</h3>
-            <p>Unauthorized devices are blocked during log extraction.</p>
-            <span class="kpi">unauthorized → blocked</span>
+            <h3>Approved access only</h3>
+            <p>Only devices and people you have approved can read or export records. Everything else is refused.</p>
+            <span class="kpi">unknown → refused</span>
           </article>
         </div>
       </div>
@@ -166,138 +165,112 @@
       <div class="wrap">
         <div class="section-head reveal">
           <span class="eyebrow">How it works</span>
-          <h2>From log to extraction in four steps.</h2>
-          <p>Logs are recorded, watched by tamper detection, moved through secured pathways and extracted by a Raspberry Pi 5 that blocks unauthorized devices.</p>
+          <h2>Record, seal, watch, retrieve.</h2>
+          <p>Four things happen to every event that reaches the box, so the record you pull out later is the record
+            that went in.</p>
         </div>
 
         <div class="flow">
           <div class="step reveal">
             <div class="step-num"><svg aria-hidden="true"><use href="#i-capture"/></svg></div>
             <small>STEP 01</small>
-            <h3>Capture</h3>
-            <p>Logs from connected systems are recorded by the Cyber Black Box server.</p>
+            <h3>Record</h3>
+            <p>Events from your connected systems arrive and are written to the box.</p>
           </div>
           <div class="step reveal d1">
-            <div class="step-num"><svg aria-hidden="true"><use href="#i-shield"/></svg></div>
+            <div class="step-num"><svg aria-hidden="true"><use href="#i-seal"/></svg></div>
             <small>STEP 02</small>
-            <h3>Protect</h3>
-            <p>Tamper detection watches the stored logs.</p>
+            <h3>Seal</h3>
+            <p>Each record is sealed on arrival so it can be checked for changes later.</p>
           </div>
           <div class="step reveal d2">
-            <div class="step-num"><svg aria-hidden="true"><use href="#i-route"/></svg></div>
+            <div class="step-num"><svg aria-hidden="true"><use href="#i-verify"/></svg></div>
             <small>STEP 03</small>
-            <h3>Move</h3>
-            <p>Logs travel through secured pathways.</p>
+            <h3>Watch</h3>
+            <p>The box keeps checking its own records and raises an alert if anything doesn't match.</p>
           </div>
           <div class="step reveal d3">
             <div class="step-num"><svg aria-hidden="true"><use href="#i-extract"/></svg></div>
             <small>STEP 04</small>
-            <h3>Extract</h3>
-            <p>A Raspberry Pi 5 extracts logs securely and blocks unauthorized devices.</p>
+            <h3>Retrieve</h3>
+            <p>When you need the records, an approved reader exports them and every export is logged.</p>
           </div>
         </div>
 
         <div class="pi-panel reveal">
           <div>
-            <span class="eyebrow">Edge extraction node</span>
-            <h3>Raspberry Pi 5, configured to say no.</h3>
-            <p>Log extraction runs on a Raspberry Pi 5 configured to extract logs securely while blocking
-              unauthorized devices.</p>
+            <span class="eyebrow">Access control</span>
+            <h3>It only talks to devices you trust.</h3>
+            <p>Plugging something into a Cyber Black Box doesn't get you the logs. The box checks every device
+              that connects and only answers the ones you have approved.</p>
             <ul class="checks">
-              <li><svg aria-hidden="true"><use href="#i-check"/></svg>Secure log extraction</li>
-              <li><svg aria-hidden="true"><use href="#i-check"/></svg>Unauthorized devices blocked</li>
-              <li><svg aria-hidden="true"><use href="#i-check"/></svg>Part of a system whose pathways have secured 2500+ logs</li>
+              <li><svg aria-hidden="true"><use href="#i-check"/></svg>Approved readers can export records</li>
+              <li><svg aria-hidden="true"><use href="#i-check"/></svg>Unknown devices and hosts are refused</li>
+              <li><svg aria-hidden="true"><use href="#i-check"/></svg>Every connection attempt is itself recorded</li>
             </ul>
           </div>
           <div class="ports" role="group" aria-label="Illustrative device access decisions">
             <div class="ports-label">ILLUSTRATIVE</div>
             <div class="port ok">
               <span class="pico"><svg aria-hidden="true"><use href="#i-chip"/></svg></span>
-              <span class="pname">pi5-extractor<small>authorized node · eth0</small></span>
+              <span class="pname">approved reader<small>registered device · eth0</small></span>
               <span class="badge">ALLOWED</span>
             </div>
             <div class="port no">
               <span class="pico"><svg aria-hidden="true"><use href="#i-usb"/></svg></span>
-              <span class="pname">unknown device<small>not authorized · port 2</small></span>
-              <span class="badge">BLOCKED</span>
+              <span class="pname">unknown USB drive<small>not approved · port 2</small></span>
+              <span class="badge">REFUSED</span>
             </div>
             <div class="port no">
               <span class="pico"><svg aria-hidden="true"><use href="#i-usb"/></svg></span>
-              <span class="pname">unrecognized adapter<small>not authorized · port 3</small></span>
-              <span class="badge">BLOCKED</span>
+              <span class="pname">unrecognized adapter<small>not approved · port 3</small></span>
+              <span class="badge">REFUSED</span>
             </div>
             <div class="port no">
               <span class="pico"><svg aria-hidden="true"><use href="#i-x"/></svg></span>
-              <span class="pname">unregistered host<small>not authorized · eth1</small></span>
-              <span class="badge">BLOCKED</span>
+              <span class="pname">unregistered host<small>not approved · eth1</small></span>
+              <span class="badge">REFUSED</span>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Validation -->
-    <section class="section" id="validation">
+    <!-- Use cases -->
+    <section class="section" id="use-cases">
       <div class="wrap">
         <div class="section-head reveal">
-          <span class="eyebrow">Validation</span>
-          <h2>Validated outside the lab, not just inside it.</h2>
-          <p>Product feasibility was validated end to end, from prototyping through to real-world validation.</p>
+          <span class="eyebrow">Use cases</span>
+          <h2>Where a trustworthy record matters.</h2>
+          <p>Cyber Black Box is built for companies that need to prove what happened on their systems, not just
+            believe it.</p>
         </div>
-        <div class="timeline" id="timeline">
-          <div class="stage reveal">
-            <small>STAGE 01</small>
-            <h3>Prototyping</h3>
-            <p>Cyber Black Box began as a working prototype.</p>
-          </div>
-          <div class="stage reveal d1">
-            <small>STAGE 02</small>
-            <h3>Integration</h3>
-            <p>Its parts were integrated into one system.</p>
-          </div>
-          <div class="stage reveal d2">
-            <small>STAGE 03</small>
-            <h3>Testing</h3>
-            <p>The integrated system was tested.</p>
-          </div>
-          <div class="stage reveal d3">
-            <small>STAGE 04</small>
-            <h3>Real-world validation</h3>
-            <p>Feasibility was validated in the real world, beyond the test bench.</p>
-          </div>
+        <div class="features">
+          <article class="card reveal">
+            <div class="ico"><svg aria-hidden="true"><use href="#i-verify"/></svg></div>
+            <h3>Incident investigation</h3>
+            <p>Reconstruct the timeline of a breach or outage from records an attacker couldn't quietly erase.</p>
+          </article>
+          <article class="card reveal d1">
+            <div class="ico"><svg aria-hidden="true"><use href="#i-seal"/></svg></div>
+            <h3>Audit &amp; compliance</h3>
+            <p>Hand auditors a log history with built-in proof that nobody has altered it.</p>
+          </article>
+          <article class="card reveal d2">
+            <div class="ico"><svg aria-hidden="true"><use href="#i-lock"/></svg></div>
+            <h3>Insider risk</h3>
+            <p>Even administrators can't rewrite history without leaving a trace.</p>
+          </article>
+          <article class="card reveal d3">
+            <div class="ico"><svg aria-hidden="true"><use href="#i-route"/></svg></div>
+            <h3>Remote &amp; unattended sites</h3>
+            <p>Keep a reliable record at locations where nobody is watching the equipment day to day.</p>
+          </article>
         </div>
         <div class="verdict reveal">
           <span class="ico"><svg aria-hidden="true"><use href="#i-check"/></svg></span>
-          <p><b>Feasibility validated.</b> Cyber Black Box's product feasibility was validated through prototyping, integration, testing and real-world validation.</p>
-          <a href="#how" class="btn btn-ghost">Review the pipeline <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Recognition -->
-    <section class="section" id="recognition" style="padding-top: 24px;">
-      <div class="wrap recog">
-        <div class="reveal">
-          <span class="eyebrow">Recognition</span>
-          <h2>Recognized by the CEO's Office.</h2>
-          <p>Our work on Cyber Black Box earned a <strong>Letter of Recommendation from the CEO's Office</strong>
-            for outstanding performance.</p>
-          <span class="pill"><svg width="16" height="16" style="color: var(--blue)" aria-hidden="true"><use href="#i-award"/></svg><b>Letter of Recommendation</b> CEO's Office</span>
-        </div>
-        <div class="letter-stage reveal d1" aria-hidden="true">
-          <div class="letter">
-            <div class="letter-head">
-              <span class="sim-tag">Illustration</span>
-              <span>CEO's Office</span>
-            </div>
-            <h3>Letter of Recommendation</h3>
-            <div class="from">For outstanding performance · Cyber Black Box</div>
-            <div class="bars"><i></i><i></i><i></i><i></i></div>
-            <div class="letter-foot">
-              <div class="sign"><small>Issued by the CEO's Office</small></div>
-              <div class="wax-seal"><svg aria-hidden="true"><use href="#i-award"/></svg></div>
-            </div>
-          </div>
+          <p><b>Need something different?</b> Voltroen also designs custom security hardware and software when a standard box isn't the right fit.</p>
+          <a href="index.html#custom" class="btn btn-ghost">Custom builds <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
         </div>
       </div>
     </section>
@@ -308,7 +281,7 @@
         <div class="cta reveal">
           <span class="eyebrow">Cyber Black Box</span>
           <h2 style="margin-top: 16px;">When something goes wrong, the black box remembers.</h2>
-          <p>Cyber Black Box watches its logs with tamper detection, moves them through secured pathways, and extracts them with a Raspberry Pi 5 that blocks unauthorized devices.</p>
+          <p>Talk to us about where your systems run and what you need on record. We'll help you plan a Cyber Black Box deployment that fits.</p>
           <div class="hero-cta">
             <a href="index.html?topic=cyber-black-box#contact" class="btn btn-primary">Talk to us about Cyber Black Box <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
             <a href="index.html" class="btn btn-ghost">Back to Voltroen</a>
@@ -323,22 +296,23 @@
       <div class="foot-grid">
         <div>
           <img src="assets/logo.png" alt="Voltroen" width="1184" height="184" />
-          <p>Hardware and software, built to leave the lab.</p>
-          <p class="mono-line">SECURITY · EMBEDDED SYSTEMS</p>
+          <p>Cyber black boxes and custom security products for business.</p>
+          <p class="mono-line">CYBERSECURITY · HARDWARE · SOFTWARE</p>
         </div>
         <div class="foot-col">
           <h2 class="foot-title">Products</h2>
           <ul>
             <li><a href="cyber-black-box.html">Cyber Black Box</a></li>
+            <li><a href="index.html#custom">Custom security builds</a></li>
           </ul>
         </div>
         <div class="foot-col">
           <h2 class="foot-title">Company</h2>
           <ul>
             <li><a href="index.html#company">The company</a></li>
-            <li><a href="index.html#method">How we build</a></li>
+            <li><a href="index.html#method">How we work</a></li>
             <li><a href="index.html#capabilities">Capabilities</a></li>
-            <li><a href="index.html#recognition">Recognition</a></li>
+            <li><a href="index.html#industries">Who we serve</a></li>
           </ul>
         </div>
         <div class="foot-col">

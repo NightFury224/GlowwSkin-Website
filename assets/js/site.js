@@ -90,8 +90,8 @@
     var cTamper = document.getElementById('c-tamper');
     var cBlocked = document.getElementById('c-blocked');
     var MAX_LINES = 8;
-    var counts = { logs: 2514, tamper: 0, blocked: 0 };
-    var batch = 311;
+    var counts = { logs: 48210, tamper: 0, blocked: 0 };
+    var batch = 87;
     var clock = new Date();
     clock.setHours(14, 2, 11, 204);
 
@@ -106,9 +106,9 @@
       ['ssh.d', 'session closed · admin']
     ];
     var BLOCKS = [
-      ['dev.guard', 'unauthorized device blocked'],
-      ['dev.guard', 'unknown device blocked'],
-      ['net.guard', 'unregistered host blocked']
+      ['dev.guard', 'unapproved device refused'],
+      ['dev.guard', 'unknown device refused'],
+      ['net.guard', 'unregistered host refused']
     ];
     var ALERTS = [
       function () { return ['integrity', '#' + (counts.logs - 213) + ' altered → flagged']; },
@@ -131,7 +131,7 @@
       if (kind === lastKind && kind !== 'seal') kind = 'seal';
       lastKind = kind;
       if (kind === 'seal') { counts.logs++; var s = pick(SEALS); return { kind: kind, tag: 'LOG', src: s[0], msg: s[1], st: '✓' }; }
-      if (kind === 'extr') { batch++; return { kind: kind, tag: 'EXTR', src: 'pi5.extract', msg: 'batch #' + batch + ' · 64 records', st: '✓' }; }
+      if (kind === 'extr') { batch++; return { kind: kind, tag: 'EXPORT', src: 'reader', msg: 'export #' + batch + ' · approved reader', st: '✓' }; }
       if (kind === 'block') { counts.blocked++; var b = pick(BLOCKS); return { kind: kind, tag: 'BLOCK', src: b[0], msg: b[1], st: '⨯' }; }
       counts.tamper++; var a = pick(ALERTS)(); return { kind: kind, tag: 'ALERT', src: a[0], msg: a[1], st: '!' };
     }
@@ -161,11 +161,11 @@
     var seed = [
       { kind: 'seal', tag: 'LOG', src: 'auth.svc', msg: 'login accepted · uid 1042', st: '✓' },
       { kind: 'seal', tag: 'LOG', src: 'net.gw', msg: 'route table updated', st: '✓' },
-      { kind: 'block', tag: 'BLOCK', src: 'dev.guard', msg: 'unauthorized device blocked', st: '⨯' },
+      { kind: 'block', tag: 'BLOCK', src: 'dev.guard', msg: 'unapproved device refused', st: '⨯' },
       { kind: 'seal', tag: 'LOG', src: 'app.svc', msg: 'event stored', st: '✓' },
-      { kind: 'extr', tag: 'EXTR', src: 'pi5.extract', msg: 'batch #311 · 64 records', st: '✓' },
+      { kind: 'extr', tag: 'EXPORT', src: 'reader', msg: 'export #87 · approved reader', st: '✓' },
       { kind: 'seal', tag: 'LOG', src: 'cfg.mgr', msg: 'config snapshot written', st: '✓' },
-      { kind: 'alert', tag: 'ALERT', src: 'integrity', msg: '#2291 altered → flagged', st: '!' },
+      { kind: 'alert', tag: 'ALERT', src: 'integrity', msg: '#47993 altered → flagged', st: '!' },
       { kind: 'seal', tag: 'LOG', src: 'db.svc', msg: 'access event recorded', st: '✓' },
       { kind: 'seal', tag: 'LOG', src: 'sys.kern', msg: 'watchdog heartbeat', st: '✓' }
     ];
@@ -185,11 +185,11 @@
       ['seal', 'auth.log', 'recorded ✓'],
       ['seal', 'gateway.log', 'recorded ✓'],
       ['seal', 'app.log', 'recorded ✓'],
-      ['extr', 'pi5.extract', 'extracted ✓'],
+      ['extr', 'reader', 'exported ✓'],
       ['seal', 'kernel.log', 'recorded ✓'],
-      ['block', 'dev.guard', 'device blocked ✗'],
+      ['block', 'dev.guard', 'device refused ✗'],
       ['seal', 'access.log', 'recorded ✓'],
-      ['extr', 'pi5.extract', 'extracted ✓'],
+      ['extr', 'reader', 'exported ✓'],
       ['seal', 'config.log', 'recorded ✓'],
       ['alert', 'integrity', 'tamper flagged !']
     ];
