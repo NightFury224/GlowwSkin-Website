@@ -252,16 +252,13 @@
     var msgEl = form.elements.message;
     var status = document.getElementById('form-status');
     var submitLabel = document.getElementById('submit-label');
-    var inboxNote = document.getElementById('inbox-note');
     var audiences = document.querySelectorAll('.audience');
 
     if (!CONTACT_EMAIL) {
       submitLabel.textContent = 'Copy message';
-      inboxNote.hidden = false;
       document.getElementById('form-helper').textContent = 'Nothing is stored by this site.';
     } else {
       submitLabel.textContent = 'Compose email';
-      inboxNote.hidden = true;
       document.getElementById('form-helper').textContent = 'This opens your own email app with the message ready to send. Nothing is stored by this site.';
     }
 
